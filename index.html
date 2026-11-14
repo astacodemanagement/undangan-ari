@@ -1298,6 +1298,9 @@ class Component extends DCLogic {
         document.body.appendChild(a);
       }
       this.audio = a;
+      try {
+        this.audio.volume = 0.4;
+      } catch (e) {}
 
       if (!this._ytBound) {
         this._ytBound = true;
@@ -1325,6 +1328,7 @@ class Component extends DCLogic {
     try {
       if (!this.audio) this.initAudio();
       if (this.audio) {
+        try { this.audio.volume = 0.4; } catch (e) {}
         const p = this.audio.play();
         if (p && p.catch) {
           p.catch((e) => console.log("Audio autoplay prevented or waiting for interaction:", e));
