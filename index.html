@@ -1842,8 +1842,8 @@ class Component extends DCLogic {
     let to = "", gc = 2, hasG = false, openedInit = false;
     try {
       const q = new URLSearchParams(window.location.search);
-      to = (q.get("to") || "").trim();
-      const g = parseInt(q.get("guest"), 10);
+      to = (q.get("to") || q.get("nama") || "").trim();
+      const g = parseInt(q.get("tamu") || q.get("guest"), 10);
       if (g > 0) { gc = Math.min(10, g); hasG = true; }
       if (q.get("open") === "1" || q.get("open") === "true") openedInit = true;
     } catch (e) {}
