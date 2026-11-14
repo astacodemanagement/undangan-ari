@@ -392,6 +392,49 @@ button,a{touch-action:manipulation}
   .cover-guest-box { padding: 6px 20px !important; font-size: 22px !important; }
   .cover-btn { height: 44px !important; padding: 0 24px !important; margin-top: 12px !important; font-size: 14px !important; }
 }
+#home,#mempelai,#acara,#gift,#rsvp{scroll-margin-top:24px}
+.bottom-nav-container{
+  position:fixed;
+  bottom:16px;
+  bottom:max(16px, env(safe-area-inset-bottom, 16px));
+  left:50%;
+  transform:translateX(-50%);
+  z-index:99998;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  padding:6px 10px;
+  border-radius:30px;
+  background:rgba(255,255,255,0.88);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.95);
+  box-shadow:0 16px 36px -10px rgba(62,74,68,0.45);
+  max-width:min(440px,calc(100vw - 24px));
+  width:auto;
+  box-sizing:border-box;
+}
+.floating-love-box{
+  position:fixed;
+  bottom:calc(76px + env(safe-area-inset-bottom, 0px));
+  left:14px;
+  z-index:99999;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.floating-music-box{
+  position:fixed;
+  bottom:calc(76px + env(safe-area-inset-bottom, 0px));
+  right:14px;
+  z-index:99999;
+}
+@media (max-width:380px){
+  .bottom-nav-container{gap:3px;padding:5px 6px;bottom:12px;bottom:max(12px, env(safe-area-inset-bottom, 12px))}
+  .floating-love-box{bottom:calc(68px + env(safe-area-inset-bottom, 0px)) !important;left:10px !important}
+  .floating-music-box{bottom:calc(68px + env(safe-area-inset-bottom, 0px)) !important;right:10px !important}
+}
 input:focus,textarea:focus{border-color:#7f9c8c !important;box-shadow:0 0 0 4px rgba(127,156,140,0.18)}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -806,19 +849,17 @@ Kelola Undangan (Admin Panel)
 </div>
 <div style="height: 130px"></div>
 
-<!-- ================= FLOATING ================= -->
-<div style="position: sticky; bottom: 16px; height: 0; z-index: 10">
-<div style="position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; padding: 6px; border-radius: 26px; background: rgba(255,255,255,0.78); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 18px 34px -14px rgba(62,74,68,0.45)">
-<a href="#home" aria-label="Beranda" style="width: 42px; height: 42px; border-radius: 18px; background: #5e7a6b; color: #fff; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" aria-hidden="true"><use href="#s-home"></use></svg></a>
-<a href="#mempelai" aria-label="Mempelai" style="width: 42px; height: 42px; border-radius: 18px; color: #5e7a6b; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" aria-hidden="true"><use href="#s-heart"></use></svg></a>
-<a href="#acara" aria-label="Acara" style="width: 42px; height: 42px; border-radius: 18px; color: #5e7a6b; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" aria-hidden="true"><use href="#s-cal"></use></svg></a>
-<a href="#gift" aria-label="Wedding gift" style="width: 42px; height: 42px; border-radius: 18px; color: #5e7a6b; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" aria-hidden="true"><use href="#s-gift"></use></svg></a>
-<a href="#rsvp" aria-label="Ucapan dan RSVP" style="width: 42px; height: 42px; border-radius: 18px; color: #5e7a6b; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" aria-hidden="true"><use href="#s-chat"></use></svg></a>
-</div>
-</div>
+<!-- ================= FLOATING BOTTOM NAVIGATION ================= -->
+<nav class="bottom-nav-container" aria-label="Menu Navigasi Undangan">
+<a href="#home" onClick="{{pickNavHome}}" style="{{navHomeStyle}}" aria-label="Beranda"><svg width="22" height="22" aria-hidden="true"><use href="#s-home"></use></svg></a>
+<a href="#mempelai" onClick="{{pickNavMempelai}}" style="{{navMempelaiStyle}}" aria-label="Mempelai"><svg width="22" height="22" aria-hidden="true"><use href="#s-heart"></use></svg></a>
+<a href="#acara" onClick="{{pickNavAcara}}" style="{{navAcaraStyle}}" aria-label="Acara"><svg width="22" height="22" aria-hidden="true"><use href="#s-cal"></use></svg></a>
+<a href="#gift" onClick="{{pickNavGift}}" style="{{navGiftStyle}}" aria-label="Wedding Gift"><svg width="22" height="22" aria-hidden="true"><use href="#s-gift"></use></svg></a>
+<a href="#rsvp" onClick="{{pickNavRsvp}}" style="{{navRsvpStyle}}" aria-label="Ucapan dan RSVP"><svg width="22" height="22" aria-hidden="true"><use href="#s-chat"></use></svg></a>
+</nav>
 
 <!-- ================= FLOATING LOVE REACTION ================= -->
-<div id="love-reaction-box" style="position: fixed; bottom: 80px; left: 14px; z-index: 99999; display: flex; flex-direction: column; align-items: center">
+<div id="love-reaction-box" class="floating-love-box">
 <button onClick="{{tapLove}}" aria-label="Kirim Doa Cinta" style="background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1.5px solid rgba(127, 156, 140, 0.45); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 12px 24px -8px rgba(94, 122, 107, 0.45); outline: none; touch-action: manipulation; transition: transform 0.15s ease">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
 <defs>
@@ -836,7 +877,7 @@ Kelola Undangan (Admin Panel)
 </div>
 
 <!-- ================= TOMBOL ON/OFF KASET / VINYL ROTATING CONTROLLER ================= -->
-<div style="position: fixed; bottom: 80px; right: 14px; z-index: 99999;">
+<div class="floating-music-box">
 <button onClick="{{toggleMusic}}" aria-label="Putar atau jeda musik" style="background: transparent; border: 0; padding: 0; cursor: pointer; display: flex; align-items: center; gap: 8px; filter: drop-shadow(0 12px 24px rgba(35,46,40,0.55)); outline: none;">
 <sc-if value="{{isMusicPlaying}}" hint-placeholder-val="{{true}}">
 <div style="display: flex; align-items: flex-end; gap: 2.5px; height: 20px; padding: 4px 8px; border-radius: 12px; background: rgba(30,42,35,0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3);">
@@ -917,7 +958,8 @@ class Component extends DCLogic {
       loveCount: initLove,
       wishSearch: "",
       wishFilter: "all",
-      wishPage: 1
+      wishPage: 1,
+      activeNav: "home"
     };
   }
 
@@ -926,12 +968,32 @@ class Component extends DCLogic {
     this.timer = setInterval(() => this.tick(), 1000);
     this.initAudio();
     this.initSupabase();
+    try {
+      const sectionIds = ["home", "mempelai", "acara", "gift", "rsvp"];
+      const updateOnScroll = () => {
+        const scrollPos = window.scrollY + 200;
+        for (let i = sectionIds.length - 1; i >= 0; i--) {
+          const el = document.getElementById(sectionIds[i]);
+          if (el && el.offsetTop <= scrollPos) {
+            if (this.state.activeNav !== sectionIds[i]) {
+              this.setState({ activeNav: sectionIds[i] });
+            }
+            break;
+          }
+        }
+      };
+      window.addEventListener("scroll", updateOnScroll, { passive: true });
+      this._scrollSpy = updateOnScroll;
+    } catch (e) {}
   }
 
   componentWillUnmount() {
     if (this.timer) clearInterval(this.timer);
     if (this.channel && this.supabase) {
       try { this.supabase.removeChannel(this.channel); } catch (e) {}
+    }
+    if (this._scrollSpy) {
+      try { window.removeEventListener("scroll", this._scrollSpy); } catch (e) {}
     }
   }
 
@@ -1192,6 +1254,9 @@ class Component extends DCLogic {
     const tabBase = "flex: 1; height: 44px; border: 0; border-radius: 22px; font-size: 14.5px; font-weight: 700; ";
     const tabOn = tabBase + "background: linear-gradient(135deg,#7f9c8c,#5e7a6b); color: #fff; box-shadow: 0 12px 20px -12px rgba(94,122,107,0.9);";
     const tabOff = tabBase + "background: transparent; color: #7c9588;";
+    const navBtnBase = "width: 42px; height: 42px; border-radius: 18px; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: all 0.25s ease; touch-action: manipulation; ";
+    const navBtnOn = navBtnBase + "background: linear-gradient(135deg,#7f9c8c,#5e7a6b); color: #fff; box-shadow: 0 8px 16px -6px rgba(94,122,107,0.7); transform: scale(1.06);";
+    const navBtnOff = navBtnBase + "background: transparent; color: #5e7a6b;";
     const events = {
       akad: { title: "Akad Nikah", time: "07:00 WIB s/d Selesai" },
       resepsi: { title: "Resepsi", time: "10:00 WIB s/d Selesai" }
@@ -1357,6 +1422,36 @@ class Component extends DCLogic {
           this.pauseAudio();
           this.pauseYouTube();
         }
+      },
+      navHomeStyle: (st.activeNav || "home") === "home" ? navBtnOn : navBtnOff,
+      navMempelaiStyle: st.activeNav === "mempelai" ? navBtnOn : navBtnOff,
+      navAcaraStyle: st.activeNav === "acara" ? navBtnOn : navBtnOff,
+      navGiftStyle: st.activeNav === "gift" ? navBtnOn : navBtnOff,
+      navRsvpStyle: st.activeNav === "rsvp" ? navBtnOn : navBtnOff,
+      pickNavHome: () => {
+        this.setState({ activeNav: "home" });
+        const el = document.getElementById("home");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      },
+      pickNavMempelai: () => {
+        this.setState({ activeNav: "mempelai" });
+        const el = document.getElementById("mempelai");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      },
+      pickNavAcara: () => {
+        this.setState({ activeNav: "acara" });
+        const el = document.getElementById("acara");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      },
+      pickNavGift: () => {
+        this.setState({ activeNav: "gift" });
+        const el = document.getElementById("gift");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      },
+      pickNavRsvp: () => {
+        this.setState({ activeNav: "rsvp" });
+        const el = document.getElementById("rsvp");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
       },
       isCover: !st.opened,
       isOpen: st.opened,
