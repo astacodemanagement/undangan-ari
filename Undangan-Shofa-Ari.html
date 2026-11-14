@@ -536,7 +536,7 @@ button,a{touch-action:manipulation}
   -webkit-backdrop-filter: blur(10px);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.45s ease;
+  transition: opacity 0.45s ease, background 0.75s ease, backdrop-filter 0.75s ease, -webkit-backdrop-filter 0.75s ease;
 }
 .envelope-overlay.env-active {
   opacity: 1;
@@ -579,6 +579,7 @@ button,a{touch-action:manipulation}
   z-index: 1;
   box-shadow: 0 24px 50px -10px rgba(90,43,67,0.38), 0 4px 12px rgba(90,43,67,0.15);
   border: 1px solid rgba(255,255,255,0.6);
+  transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.55s ease;
 }
 
 /* Invitation letter card */
@@ -597,12 +598,36 @@ button,a{touch-action:manipulation}
   align-items: center;
   justify-content: center;
   transform: translateY(0);
-  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.85s, box-shadow 0.85s ease 0.85s;
+  transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.65s, box-shadow 0.75s ease 0.65s, opacity 0.6s ease, filter 0.6s ease;
 }
 .env-active .env-letter-card {
   transform: translateY(-138px) scale(1.05);
   box-shadow: 0 20px 40px -8px rgba(90,43,67,0.32);
 }
+
+/* EXPANDING PHASE: letter card zooms continuously into screen and envelope drops away */
+.envelope-overlay.env-expanding {
+  background: rgba(251, 247, 244, 0) !important;
+  backdrop-filter: blur(0px) !important;
+  -webkit-backdrop-filter: blur(0px) !important;
+}
+.envelope-overlay.env-expanding .env-back,
+.envelope-overlay.env-expanding .env-front-pocket,
+.envelope-overlay.env-expanding .env-top-flap,
+.envelope-overlay.env-expanding .env-caption {
+  transform: translateY(180px) scale(0.85);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.55s ease;
+}
+.envelope-overlay.env-expanding .env-letter-card {
+  transform: translateY(-30px) scale(3.6);
+  opacity: 0;
+  filter: blur(4px);
+  box-shadow: 0 40px 80px rgba(90,43,67,0.4);
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.65s ease 0.1s, filter 0.65s ease 0.1s;
+}
+
 .env-letter-inner {
   text-align: center;
   padding: 10px 14px;
@@ -657,6 +682,7 @@ button,a{touch-action:manipulation}
   pointer-events: none;
   border-radius: 12px;
   overflow: hidden;
+  transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.55s ease;
 }
 
 /* Top flap folds open */
@@ -669,7 +695,7 @@ button,a{touch-action:manipulation}
   transform-origin: top center;
   z-index: 4;
   transform: rotateX(0deg);
-  transition: transform 0.7s cubic-bezier(0.3, 0, 0.7, 0) 0.35s, z-index 0.01s 0.7s;
+  transition: transform 0.65s cubic-bezier(0.3, 0, 0.7, 0) 0.25s, z-index 0.01s 0.6s, transform 0.75s cubic-bezier(0.4, 0, 0.2, 1) 1.2s, opacity 0.55s ease;
 }
 .env-active .env-top-flap {
   transform: rotateX(180deg);
@@ -683,7 +709,7 @@ button,a{touch-action:manipulation}
   left: 50%;
   transform: translate(-50%, -50%) scale(1);
   z-index: 5;
-  transition: transform 0.4s cubic-bezier(0.3, 0, 0.7, 0) 0.15s, opacity 0.35s ease 0.2s;
+  transition: transform 0.35s cubic-bezier(0.3, 0, 0.7, 0) 0.1s, opacity 0.3s ease 0.15s;
 }
 .env-active .env-wax-seal {
   transform: translate(-50%, -50%) scale(0) rotate(35deg);
@@ -711,11 +737,33 @@ button,a{touch-action:manipulation}
   color: #5a3547;
   opacity: 0;
   transform: translateY(8px);
-  transition: all 0.5s ease 0.25s;
+  transition: transform 0.5s ease 0.25s, opacity 0.5s ease 0.25s;
 }
 .env-active .env-caption {
   opacity: 0.85;
   transform: translateY(0);
+}
+
+/* ================= HOME FIRST PAGE ENTRANCE EXPANSION ================= */
+.home-entrance-wrapper {
+  animation: homeUnfoldZoom 1.05s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: 50% 25%;
+}
+@keyframes homeUnfoldZoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.72) translateY(50px);
+    filter: blur(6px);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0px);
+  }
 }
 
 /* Sparkles */
@@ -1146,7 +1194,7 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
 <div style="position: absolute; top: 5100px; left: -130px; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle, rgba(140,86,115,0.26) 0, rgba(140,86,115,0) 70%); animation: blob 34s ease-in-out 6s infinite alternate"></div>
 </div>
 <!-- ================= HERO ================= -->
-<div id="home" style="position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 64px 24px 56px">
+<div id="home" class="home-entrance-wrapper" style="position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 64px 24px 56px">
 
 <div style="position: absolute; top: 0; left: 10%; width: 26px; display: flex; flex-direction: column; align-items: center; transform-origin: 50% 0; animation: sway 8s ease-in-out 0s infinite" aria-hidden="true"><div style="width: 1px; height: 70px; background: linear-gradient(#c9a66b,rgba(201,166,107,0.3))"></div><svg width="26" height="46" viewBox="0 0 26 46"><g fill="none" stroke="#a67c52" stroke-width="1.2" stroke-linecap="round"><path d="M13 0v6"></path><path d="M9 6h8"></path><path d="M7 12Q13 6 19 12L21 28Q13 34 5 28Z" fill="rgba(255,226,160,0.55)"></path><path d="M13 9v22M9 11l-1 18M17 11l1 18"></path><path d="M8 30h10l-2 6h-6z" fill="#e7d3a6"></path><path d="M13 36v8"></path></g><ellipse cx="13" cy="21" rx="3" ry="5" fill="#ffd98a" style="animation: flick 3s ease-in-out infinite"></ellipse></svg></div>
 <div style="position: absolute; top: 0; left: 24%; width: 24px; display: flex; flex-direction: column; align-items: center; transform-origin: 50% 0; animation: sway 7s ease-in-out 1.2s infinite" aria-hidden="true"><div style="width: 1px; height: 38px; background: linear-gradient(#c9a66b,rgba(201,166,107,0.3))"></div><svg width="24" height="24" viewBox="0 0 24 24" style="color: #a67c52"><path d="M15.5 3.2A9 9 0 1 0 20.8 15 7.2 7.2 0 0 1 15.5 3.2z" fill="currentColor"></path></svg></div>
@@ -2305,6 +2353,12 @@ class Component extends DCLogic {
           void overlay.offsetWidth;
           overlay.classList.add("env-active");
 
+          // Fase 1: Surat keluar dan mulai ekspansi zoom membesar ke arah layar
+          setTimeout(() => {
+            overlay.classList.add("env-expanding");
+          }, 1200);
+
+          // Fase 2: Halaman utama (#home) muncul membesar mulus menggantikan surat
           setTimeout(() => {
             this.setState({ opened: true, playing: true });
             this.playYouTube();
@@ -2312,9 +2366,9 @@ class Component extends DCLogic {
 
             overlay.classList.add("env-fade-out");
             setTimeout(() => {
-              overlay.classList.remove("env-active", "env-fade-out");
+              overlay.classList.remove("env-active", "env-expanding", "env-fade-out");
               overlay.style.display = "none";
-            }, 700);
+            }, 600);
 
             setTimeout(() => {
               if (this._motionTrigger) this._motionTrigger();
@@ -2326,7 +2380,7 @@ class Component extends DCLogic {
             }, 150);
             setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 500);
             setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 1000);
-          }, 1850);
+          }, 1450);
         } else {
           this.setState({ opened: true, playing: true });
           this.playYouTube();
