@@ -473,59 +473,72 @@ button,a{touch-action:manipulation}
 }
 
 /* ================= LIVING SCROLL TRANSITIONS & MOTION GRAPHICS ================= */
-.scroll-reveal {
+.motion-up {
   opacity: 0;
-  transform: translateY(32px) scale(0.98);
+  transform: translate3d(0, 40px, 0);
   filter: blur(4px);
   transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform, filter;
 }
-.scroll-reveal.revealed {
+.motion-up.revealed {
   opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
-}
-.scroll-reveal-left {
-  opacity: 0;
-  transform: translateX(-36px);
-  filter: blur(4px);
-  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform, filter;
-}
-.scroll-reveal-left.revealed {
-  opacity: 1;
-  transform: translateX(0);
-  filter: blur(0);
-}
-.scroll-reveal-right {
-  opacity: 0;
-  transform: translateX(36px);
-  filter: blur(4px);
-  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform, filter;
-}
-.scroll-reveal-right.revealed {
-  opacity: 1;
-  transform: translateX(0);
-  filter: blur(0);
-}
-.scroll-reveal-zoom {
-  opacity: 0;
-  transform: scale(0.86);
-  filter: blur(4px);
-  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform, filter;
-}
-.scroll-reveal-zoom.revealed {
-  opacity: 1;
-  transform: scale(1);
+  transform: translate3d(0, 0, 0);
   filter: blur(0);
 }
 
-.motion-delay-1 { transition-delay: 0.1s; }
-.motion-delay-2 { transition-delay: 0.2s; }
-.motion-delay-3 { transition-delay: 0.3s; }
-.motion-delay-4 { transition-delay: 0.4s; }
+.motion-left {
+  opacity: 0;
+  transform: translate3d(-48px, 0, 0);
+  filter: blur(4px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+.motion-left.revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  filter: blur(0);
+}
+
+.motion-right {
+  opacity: 0;
+  transform: translate3d(48px, 0, 0);
+  filter: blur(4px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+.motion-right.revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  filter: blur(0);
+}
+
+.motion-zoom {
+  opacity: 0;
+  transform: scale(0.85) translate3d(0, 24px, 0);
+  filter: blur(4px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+.motion-zoom.revealed {
+  opacity: 1;
+  transform: scale(1) translate3d(0, 0, 0);
+  filter: blur(0);
+}
+
+.delay-1 { transition-delay: 0.12s; }
+.delay-2 { transition-delay: 0.24s; }
+.delay-3 { transition-delay: 0.36s; }
+.delay-4 { transition-delay: 0.48s; }
+
+/* Existing compatibility classes */
+.scroll-reveal { opacity: 0; transform: translate3d(0, 36px, 0); filter: blur(4px); transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.85s cubic-bezier(0.16, 1, 0.3, 1); will-change: opacity, transform, filter; }
+.scroll-reveal.revealed { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+.scroll-reveal-left { opacity: 0; transform: translate3d(-48px, 0, 0); filter: blur(4px); transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.85s cubic-bezier(0.16, 1, 0.3, 1); will-change: opacity, transform, filter; }
+.scroll-reveal-left.revealed { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+.scroll-reveal-right { opacity: 0; transform: translate3d(48px, 0, 0); filter: blur(4px); transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.85s cubic-bezier(0.16, 1, 0.3, 1); will-change: opacity, transform, filter; }
+.scroll-reveal-right.revealed { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+.scroll-reveal-zoom { opacity: 0; transform: scale(0.85) translate3d(0, 24px, 0); filter: blur(4px); transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.85s cubic-bezier(0.16, 1, 0.3, 1); will-change: opacity, transform, filter; }
+.scroll-reveal-zoom.revealed { opacity: 1; transform: scale(1) translate3d(0, 0, 0); filter: blur(0); }
 
 /* Connecting Section Dividers */
 .section-connector {
@@ -738,36 +751,7 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
 <symbol id="s-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
 <symbol id="s-note" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V6l10-2v12"></path><circle cx="7" cy="18" r="2.4"></circle><circle cx="17" cy="16" r="2.4"></circle></g></symbol>
 <symbol id="s-send" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3 10.5 13.5"></path><path d="M21 3l-6.5 18-4-7.5L3 9.5z"></path></g></symbol>
-<!-- Reusable Botanical Branch Flourish (Inspired by printed card) -->
-<symbol id="s-floral-branch" viewBox="0 0 160 200">
-  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <!-- Main curving vine stems in chocolate -->
-    <path d="M150 10 Q110 40 80 90 Q50 140 20 190" stroke="#704838" stroke-width="2.2" opacity="0.85"/>
-    <path d="M110 50 Q135 65 145 85" stroke="#855845" stroke-width="1.6" opacity="0.8"/>
-    <path d="M85 80 Q60 95 45 120" stroke="#704838" stroke-width="1.6" opacity="0.8"/>
-    <path d="M60 125 Q80 140 90 160" stroke="#855845" stroke-width="1.4" opacity="0.75"/>
-    <!-- Velvet Plum Leaves -->
-    <path d="M150 12 Q130 18 128 32 Q144 30 150 12 Z" fill="#6b3f54" opacity="0.9"/>
-    <path d="M142 45 Q122 50 120 64 Q136 62 142 45 Z" fill="#5a3547" opacity="0.92"/>
-    <path d="M145 85 Q130 92 128 106 Q142 102 145 85 Z" fill="#8c5673" opacity="0.88"/>
-    <path d="M105 45 Q88 52 86 66 Q102 62 105 45 Z" fill="#5a3547" opacity="0.9"/>
-    <path d="M78 85 Q62 90 60 104 Q76 100 78 85 Z" fill="#6b3f54" opacity="0.92"/>
-    <path d="M45 120 Q32 128 30 142 Q44 138 45 120 Z" fill="#8c5673" opacity="0.88"/>
-    <!-- Warm Chocolate / Cocoa Leaves -->
-    <path d="M130 30 Q112 36 110 50 Q126 46 130 30 Z" fill="#704838" opacity="0.85"/>
-    <path d="M92 65 Q76 72 74 85 Q90 80 92 65 Z" fill="#855845" opacity="0.85"/>
-    <path d="M65 105 Q50 112 48 125 Q64 120 65 105 Z" fill="#704838" opacity="0.85"/>
-    <path d="M90 160 Q75 168 74 180 Q88 176 90 160 Z" fill="#855845" opacity="0.8"/>
-    <!-- Antique Gold Buds & Sprigs -->
-    <path d="M115 25 Q102 28 100 38 Q112 36 115 25 Z" fill="#c9a66b" opacity="0.9"/>
-    <path d="M72 72 Q60 76 58 86 Q70 84 72 72 Z" fill="#c9a66b" opacity="0.9"/>
-    <circle cx="152" cy="10" r="3.5" fill="#dfba73"/>
-    <circle cx="147" cy="86" r="3" fill="#dfba73"/>
-    <circle cx="43" cy="122" r="3" fill="#dfba73"/>
-    <circle cx="92" cy="162" r="2.8" fill="#dfba73"/>
-    <circle cx="18" cy="192" r="3" fill="#dfba73"/>
-  </g>
-</symbol>
+
 <pattern id="lux-damask" width="90" height="90" patternUnits="userSpaceOnUse">
   <g fill="none" stroke-linecap="round" stroke-linejoin="round">
     <path d="M45 10 L54 28 L72 28 L58 40 L62 58 L45 48 L28 58 L32 40 L18 28 L36 28 Z" stroke="rgba(201,166,107,0.18)" stroke-width="0.8"/>
@@ -784,14 +768,6 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
 <!-- ================= COVER ================= -->
 <sc-if value="{{isCover}}" hint-placeholder-val="{{true}}">
 <div id="cover" style="position: relative; min-height: 100vh; min-height: 100dvh; max-height: 940px; box-sizing: border-box; padding: 28px 18px 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden">
-<!-- Elegant Botanical Flourish Top Right (Cover) -->
-<div aria-hidden="true" style="position: absolute; top: -10px; right: -10px; width: 140px; height: 175px; pointer-events: none; z-index: 3; opacity: 0.82; filter: drop-shadow(0 4px 10px rgba(90,43,67,0.18));">
-  <svg width="100%" height="100%"><use href="#s-floral-branch"></use></svg>
-</div>
-<!-- Elegant Botanical Flourish Bottom Left (Cover) -->
-<div aria-hidden="true" style="position: absolute; bottom: -15px; left: -15px; width: 135px; height: 170px; pointer-events: none; z-index: 3; opacity: 0.82; transform: rotate(180deg); filter: drop-shadow(0 -4px 10px rgba(90,43,67,0.18));">
-  <svg width="100%" height="100%"><use href="#s-floral-branch"></use></svg>
-</div>
 <!-- Continuous Luxury Damask Texture -->
 <svg width="100%" height="100%" style="position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: 0.75;" aria-hidden="true"><rect width="100%" height="100%" fill="url(#lux-damask)"></rect></svg>
 <svg width="100%" height="100%" style="position: absolute; inset: 0; opacity: 0.08; -webkit-mask-image: linear-gradient(#000 30%, transparent 95%); mask-image: linear-gradient(#000 30%, transparent 95%)" aria-hidden="true"><defs><pattern id="stp2" width="64" height="64" patternUnits="userSpaceOnUse"><g fill="none" stroke="#7a5a35" stroke-width="1"><rect x="14" y="14" width="36" height="36"></rect><rect x="14" y="14" width="36" height="36" transform="rotate(45 32 32)"></rect></g></pattern></defs><rect width="100%" height="100%" fill="url(#stp2)"></rect></svg>
@@ -820,22 +796,6 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
 <sc-if value="{{isOpen}}" hint-placeholder-val="{{false}}">
 <!-- Continuous Luxury Damask Tapestry (Eliminates empty white space) -->
 <svg width="100%" height="100%" style="position: absolute; inset: 0; pointer-events: none; z-index: 1; opacity: 0.8;" aria-hidden="true"><rect width="100%" height="100%" fill="url(#lux-damask)"></rect></svg>
-<!-- Botanical Corner Flourish - Hero Top Right -->
-<div aria-hidden="true" style="position: absolute; top: 10px; right: -10px; width: 150px; height: 190px; pointer-events: none; z-index: 4; opacity: 0.85; filter: drop-shadow(0 4px 12px rgba(90,43,67,0.18));">
-  <svg width="100%" height="100%"><use href="#s-floral-branch"></use></svg>
-</div>
-<!-- Botanical Corner Flourish - Mempelai Left -->
-<div aria-hidden="true" style="position: absolute; top: 1250px; left: -15px; width: 145px; height: 180px; pointer-events: none; z-index: 4; opacity: 0.85; transform: rotate(180deg); filter: drop-shadow(0 -4px 12px rgba(90,43,67,0.18));">
-  <svg width="100%" height="100%"><use href="#s-floral-branch"></use></svg>
-</div>
-<!-- Botanical Corner Flourish - Acara Right -->
-<div aria-hidden="true" style="position: absolute; top: 2200px; right: -15px; width: 140px; height: 175px; pointer-events: none; z-index: 4; opacity: 0.82; filter: drop-shadow(0 4px 12px rgba(90,43,67,0.18));">
-  <svg width="100%" height="100%"><use href="#s-floral-branch"></use></svg>
-</div>
-<!-- Botanical Corner Flourish - Penutup Bottom Left -->
-<div aria-hidden="true" style="position: absolute; bottom: 120px; left: -15px; width: 150px; height: 190px; pointer-events: none; z-index: 4; opacity: 0.88; transform: rotate(180deg); filter: drop-shadow(0 -4px 12px rgba(90,43,67,0.2));">
-  <svg width="100%" height="100%"><use href="#s-floral-branch"></use></svg>
-</div>
 <!-- ================= FLOATING FULLSCREEN TOGGLE BUTTON ================= -->
 <button onClick="{{toggleFullscreen}}" aria-label="Toggle Fullscreen" class="floating-fullscreen-btn" title="Layar Penuh">
   <sc-if value="{{isFullscreen}}" hint-placeholder-val="{{false}}">
@@ -860,14 +820,8 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
 <div style="position: absolute; top: 5100px; left: -130px; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle, rgba(176,128,88,0.26) 0, rgba(176,128,88,0) 70%); animation: blob 34s ease-in-out 6s infinite alternate"></div>
 </div>
 <!-- ================= HERO ================= -->
-<div id="home" class="scroll-reveal" style="position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 64px 24px 56px">
-<div style="position: absolute; top: 40px; left: 10%; width: 10px; height: 13px; border-radius: 70% 0 70% 0; background: linear-gradient(135deg,#fbe5e2,#f0c0bd); z-index: 2; opacity: 0; animation: petal 15s linear 0s infinite" aria-hidden="true"></div>
-<div style="position: absolute; top: 40px; left: 24%; width: 8px; height: 11px; border-radius: 70% 0 70% 0; background: linear-gradient(135deg,#ffffff,#f4e6df); z-index: 2; opacity: 0; animation: petal 19s linear 5s infinite" aria-hidden="true"></div>
-<div style="position: absolute; top: 40px; left: 38%; width: 11px; height: 14px; border-radius: 70% 0 70% 0; background: linear-gradient(135deg,#fbe5e2,#f0c0bd); z-index: 2; opacity: 0; animation: petal 17s linear 9s infinite" aria-hidden="true"></div>
-<div style="position: absolute; top: 40px; left: 52%; width: 9px; height: 12px; border-radius: 70% 0 70% 0; background: linear-gradient(135deg,#ffffff,#f4e6df); z-index: 2; opacity: 0; animation: petal 21s linear 2s infinite" aria-hidden="true"></div>
-<div style="position: absolute; top: 40px; left: 66%; width: 10px; height: 13px; border-radius: 70% 0 70% 0; background: linear-gradient(135deg,#fbe5e2,#f0c0bd); z-index: 2; opacity: 0; animation: petal 16s linear 12s infinite" aria-hidden="true"></div>
-<div style="position: absolute; top: 40px; left: 78%; width: 8px; height: 11px; border-radius: 70% 0 70% 0; background: linear-gradient(135deg,#ffffff,#f4e6df); z-index: 2; opacity: 0; animation: petal 20s linear 7s infinite" aria-hidden="true"></div>
-<div style="position: absolute; top: 40px; left: 90%; width: 11px; height: 14px; border-radius: 70% 0 70% 0; background: linear-gradient(135deg,#fbe5e2,#f0c0bd); z-index: 2; opacity: 0; animation: petal 18s linear 3s infinite" aria-hidden="true"></div>
+<div id="home" style="position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 64px 24px 56px">
+
 <div style="position: absolute; top: 0; left: 10%; width: 26px; display: flex; flex-direction: column; align-items: center; transform-origin: 50% 0; animation: sway 8s ease-in-out 0s infinite" aria-hidden="true"><div style="width: 1px; height: 70px; background: linear-gradient(#c9a66b,rgba(201,166,107,0.3))"></div><svg width="26" height="46" viewBox="0 0 26 46"><g fill="none" stroke="#a67c52" stroke-width="1.2" stroke-linecap="round"><path d="M13 0v6"></path><path d="M9 6h8"></path><path d="M7 12Q13 6 19 12L21 28Q13 34 5 28Z" fill="rgba(255,226,160,0.55)"></path><path d="M13 9v22M9 11l-1 18M17 11l1 18"></path><path d="M8 30h10l-2 6h-6z" fill="#e7d3a6"></path><path d="M13 36v8"></path></g><ellipse cx="13" cy="21" rx="3" ry="5" fill="#ffd98a" style="animation: flick 3s ease-in-out infinite"></ellipse></svg></div>
 <div style="position: absolute; top: 0; left: 24%; width: 24px; display: flex; flex-direction: column; align-items: center; transform-origin: 50% 0; animation: sway 7s ease-in-out 1.2s infinite" aria-hidden="true"><div style="width: 1px; height: 38px; background: linear-gradient(#c9a66b,rgba(201,166,107,0.3))"></div><svg width="24" height="24" viewBox="0 0 24 24" style="color: #a67c52"><path d="M15.5 3.2A9 9 0 1 0 20.8 15 7.2 7.2 0 0 1 15.5 3.2z" fill="currentColor"></path></svg></div>
 <div style="position: absolute; top: 0; right: 24%; width: 20px; display: flex; flex-direction: column; align-items: center; transform-origin: 50% 0; animation: sway 9s ease-in-out 0.6s infinite" aria-hidden="true"><div style="width: 1px; height: 52px; background: linear-gradient(#c9a66b,rgba(201,166,107,0.3))"></div><svg width="20" height="20" viewBox="0 0 24 24" style="color: #c9a66b"><path d="M12 1l2.2 8.8L23 12l-8.8 2.2L12 23l-2.2-8.8L1 12l8.8-2.2z" fill="currentColor"></path></svg></div>
@@ -885,16 +839,16 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
 <div style="position: absolute; top: 470px; left: 74%; width: 4px; height: 4px; border-radius: 50%; background: #d4b27a; opacity: 0; animation: rise 13s ease-in 8s infinite" aria-hidden="true"></div>
 <div style="position: absolute; top: 470px; left: 86%; width: 3px; height: 3px; border-radius: 50%; background: #d4b27a; opacity: 0; animation: rise 15s ease-in 4s infinite" aria-hidden="true"></div>
 <div style="position: absolute; top: -70px; right: -60px; width: 230px; height: 230px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(201,166,107,0.18) 70%)"></div>
-<div style="position: relative; font-size: 12px; font-weight: 500; letter-spacing: 5px; color: #7a6246; animation: fadeUp 1s ease both">THE WEDDING OF</div>
-<div style="position: relative; margin-top: 26px; padding: 9px; border-radius: 150px 150px 34px 34px; border: 1px dashed #c9a66b; animation: floaty 6s ease-in-out infinite">
+<div class="motion-up" style="position: relative; font-size: 12px; font-weight: 500; letter-spacing: 5px; color: #7a6246;">THE WEDDING OF</div>
+<div class="motion-zoom delay-1" style="position: relative; margin-top: 26px; padding: 9px; border-radius: 150px 150px 34px 34px; border: 1px dashed #c9a66b; animation: floaty 6s ease-in-out infinite">
 <div style="position: relative; width: 240px; height: 380px; border-radius: 130px 130px 26px 26px; overflow: hidden; box-shadow: 0 24px 40px -18px rgba(90,43,67,0.35)">
 <img src="assets/couple.webp" onerror="this.onerror=null;this.src='assets/couple.jpg'" alt="Ilustrasi Shofa dan Ari" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%"><div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg,rgba(255,255,255,0) 35%,rgba(255,255,255,0.3) 50%,rgba(255,255,255,0) 65%); background-size: 300% 100%; animation: sweep 8s ease-in-out 2s infinite" aria-hidden="true"></div>
 </div>
 </div>
-<div style="position: relative; margin-top: 22px; font-family: 'Great Vibes', cursive; font-size: 60px; line-height: 1.15; padding: 0 6px; background: linear-gradient(100deg,#5a3547 0%,#c9a66b 35%,#704838 65%,#5a3547 100%); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; animation: shimmer 9s linear infinite, fadeUp 1.2s ease 0.4s both">Shofa &amp; Ari</div>
-<div style="position: relative; margin-top: 10px; font-size: 14px; letter-spacing: 1px; color: #5c473e; animation: fadeUp 1.2s ease 0.8s both">Sabtu, 26 Desember 2026</div>
+<div class="motion-up delay-2" style="position: relative; margin-top: 22px; font-family: 'Great Vibes', cursive; font-size: 60px; line-height: 1.15; padding: 0 6px; background: linear-gradient(100deg,#5a3547 0%,#c9a66b 35%,#704838 65%,#5a3547 100%); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; animation: shimmer 9s linear infinite;">Shofa &amp; Ari</div>
+<div class="motion-up delay-2" style="position: relative; margin-top: 10px; font-size: 14px; letter-spacing: 1px; color: #5c473e;">Sabtu, 26 Desember 2026</div>
 
-<div style="position: relative; margin-top: 26px; width: 100%; box-sizing: border-box; padding: 18px 12px 16px; border-radius: 28px; background: linear-gradient(165deg, rgba(255,255,255,0.95) 0%, rgba(252,244,248,0.92) 50%, rgba(247,238,233,0.94) 100%); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(201,166,107,0.42); box-shadow: 0 20px 44px -20px rgba(90,43,67,0.25), inset 0 1px 0 rgba(255,255,255,0.95)">
+<div class="motion-zoom delay-3" style="position: relative; margin-top: 26px; width: 100%; box-sizing: border-box; padding: 18px 12px 16px; border-radius: 28px; background: linear-gradient(165deg, rgba(255,255,255,0.95) 0%, rgba(252,244,248,0.92) 50%, rgba(247,238,233,0.94) 100%); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(201,166,107,0.42); box-shadow: 0 20px 44px -20px rgba(90,43,67,0.25), inset 0 1px 0 rgba(255,255,255,0.95)">
 <div style="display: flex; gap: 6px; justify-content: center; flex-wrap: nowrap;">
 <div style="flex: 1; max-width: 76px; padding: 12px 0 9px; border-radius: 18px; background: linear-gradient(160deg,#ffffff,#faf2f6); box-shadow: 0 8px 16px -10px rgba(90,43,67,0.35)"><div style="font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 600; line-height: 1; color: #5a3547">{{cdDays}}</div><div style="margin-top: 4px; font-size: 11px; letter-spacing: 1px; color: #70584f">HARI</div></div>
 <div style="flex: 1; max-width: 76px; padding: 12px 0 9px; border-radius: 18px; background: linear-gradient(160deg,#ffffff,#faf2f6); box-shadow: 0 8px 16px -10px rgba(90,43,67,0.35)"><div style="font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 600; line-height: 1; color: #5a3547">{{cdHours}}</div><div style="margin-top: 4px; font-size: 11px; letter-spacing: 1px; color: #70584f">JAM</div></div>
@@ -902,12 +856,12 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
 <div style="flex: 1; max-width: 76px; padding: 12px 0 9px; border-radius: 18px; background: linear-gradient(160deg,#ffffff,#faf2f6); box-shadow: 0 8px 16px -10px rgba(90,43,67,0.35); animation: pulse 1s ease-in-out infinite"><div style="font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 600; line-height: 1; color: #5a3547; animation: pulse 1s ease-in-out infinite;">{{cdSec}}</div><div style="margin-top: 4px; font-size: 11px; letter-spacing: 1px; color: #70584f">DETIK</div></div>
 </div>
 <div style="margin-top: 12px; font-size: 12.5px; color: #70584f">{{cdNote}}</div>
-<a href="#acara" style="margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 22px; border-radius: 21px; background: #fff; color: #5a3547; font-size: 14px; font-weight: 700; box-shadow: 0 10px 20px -12px rgba(90,43,67,0.4)"><svg width="18" height="18" aria-hidden="true"><use href="#s-cal"></use></svg>Simpan Tanggal</a>
+<a href="#acara" class="motion-up delay-4" style="margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 22px; border-radius: 21px; background: #fff; color: #5a3547; font-size: 14px; font-weight: 700; box-shadow: 0 10px 20px -12px rgba(90,43,67,0.4)"><svg width="18" height="18" aria-hidden="true"><use href="#s-cal"></use></svg>Simpan Tanggal</a>
 </div>
 </div>
 
 <!-- ================= AYAT ================= -->
-<div class="scroll-reveal" style="position: relative; margin: 0 16px; padding: 36px 22px 34px; border-radius: 28px; text-align: center; background: linear-gradient(165deg, rgba(255,255,255,0.96) 0%, rgba(252,244,248,0.94) 50%, rgba(248,239,235,0.95) 100%); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(201,166,107,0.42); box-shadow: 0 20px 44px -20px rgba(90,43,67,0.25), inset 0 1px 0 rgba(255,255,255,0.95); animation: floaty 8s ease-in-out infinite;">
+<div class="motion-zoom" style="position: relative; margin: 0 16px; padding: 36px 22px 34px; border-radius: 28px; text-align: center; background: linear-gradient(165deg, rgba(255,255,255,0.96) 0%, rgba(252,244,248,0.94) 50%, rgba(248,239,235,0.95) 100%); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(201,166,107,0.42); box-shadow: 0 20px 44px -20px rgba(90,43,67,0.25), inset 0 1px 0 rgba(255,255,255,0.95); animation: floaty 8s ease-in-out infinite;">
 <div aria-hidden="true" style="position: absolute; top: 14px; right: 18px; width: 9px; height: 9px; color: #c9a66b; animation: twinkle 4s ease-in-out infinite;"><svg width="9" height="9" viewBox="0 0 24 24"><path d="M12 1l2.2 8.8L23 12l-8.8 2.2L12 23l-2.2-8.8L1 12l8.8-2.2z" fill="currentColor"></path></svg></div>
 <div aria-hidden="true" style="position: absolute; bottom: 16px; left: 18px; width: 8px; height: 8px; color: #9c6f84; animation: twinkle 5s ease-in-out 1.5s infinite;"><svg width="8" height="8" viewBox="0 0 24 24"><path d="M12 1l2.2 8.8L23 12l-8.8 2.2L12 23l-2.2-8.8L1 12l8.8-2.2z" fill="currentColor"></path></svg></div>
 <svg width="120" height="12" style="display: block; margin: 0 auto; animation: pulse 4s ease-in-out infinite;" aria-hidden="true"><use href="#s-orn"></use></svg>
@@ -923,32 +877,33 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
   <div class="section-connector-line" style="width: 60px; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(201,166,107,0.85), transparent);"></div>
 </div>
 <!-- ================= MEMPELAI ================= -->
-<div id="mempelai" class="scroll-reveal" style="padding: 64px 16px 0; text-align: center; position: relative; overflow: hidden;">
+<div id="mempelai" style="padding: 64px 16px 0; text-align: center; position: relative; overflow: hidden;">
 <!-- Falling Leaves & Petals Motion Graphics (Minimalist & Subtle) -->
 <div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; z-index: 6; overflow: hidden;">
-  <div style="position: absolute; top: 0; left: 14%; width: 13px; height: 19px; border-radius: 80% 0 80% 0; background: linear-gradient(135deg, #c49ba9 0%, #6b4054 100%); opacity: 0; filter: drop-shadow(0 3px 5px rgba(90,43,67,0.3)); animation: leafFall1 14s linear 0s infinite;"></div>
-  <div style="position: absolute; top: 0; left: 78%; width: 11px; height: 16px; border-radius: 70% 0 70% 0; background: linear-gradient(135deg, #a46d84 0%, #4a2839 100%); opacity: 0; filter: drop-shadow(0 3px 5px rgba(90,43,67,0.25)); animation: leafFall2 16s linear 4s infinite;"></div>
-  <div style="position: absolute; top: 0; left: 34%; width: 10px; height: 16px; border-radius: 0 80% 0 80%; background: linear-gradient(135deg, #e8d7b5 0%, #c9a66b 100%); opacity: 0; filter: drop-shadow(0 3px 5px rgba(201,166,107,0.25)); animation: leafFall1 15s linear 8.5s infinite;"></div>
-  <div style="position: absolute; top: 0; left: 88%; width: 11px; height: 15px; border-radius: 80% 0 80% 0; background: linear-gradient(135deg, #c2957f 0%, #704838 100%); opacity: 0; filter: drop-shadow(0 2px 4px rgba(90,43,67,0.18)); animation: leafFall2 17s linear 6s infinite;"></div>
-  <div style="position: absolute; top: 0; left: 52%; width: 12px; height: 19px; border-radius: 85% 0 85% 0; background: linear-gradient(135deg, #d8b8c5 0%, #8c5b73 100%); opacity: 0; filter: drop-shadow(0 3px 6px rgba(90,43,67,0.25)); animation: leafFall1 16.5s linear 12s infinite;"></div>
-</div>
-<div style="font-size: 12px; letter-spacing: 4px; color: #9c6f84">ASSALAMU’ALAIKUM WARAHMATULLAHI WABARAKATUH</div>
-<div style="margin: 16px auto 0; max-width: 340px; font-family: 'Cormorant Garamond', serif; font-size: 19px; font-style: italic; line-height: 1.5; color: #4a3e42">Maha suci Allah SWT yang telah menciptakan makhluk-Nya berpasang-pasangan, semoga ridho-Mu tercurah mengiringi pernikahan kami.</div>
-
-<div class="scroll-reveal-left" style="margin-top: 36px; padding: 30px 20px 28px; border-radius: 28px; background: linear-gradient(165deg, rgba(255,255,255,0.95) 0%, rgba(252,244,248,0.92) 50%, rgba(247,238,233,0.94) 100%); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(201,166,107,0.42); box-shadow: 0 20px 44px -20px rgba(90,43,67,0.25), inset 0 1px 0 rgba(255,255,255,0.95)">
-<div style="margin: 0 auto; position: relative; width: 200px; height: 262px; border-radius: 100px 100px 24px 24px; overflow: hidden; border: 6px solid #fff; box-shadow: 0 20px 34px -16px rgba(90,43,67,0.35); box-sizing: border-box; animation: floaty 7s ease-in-out infinite;"><img src="assets/shofa.webp" onerror="this.onerror=null;this.src='assets/shofa.jpg'" loading="lazy" decoding="async" alt="Shofa Alifah" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%"><div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg,rgba(255,255,255,0) 35%,rgba(255,255,255,0.3) 50%,rgba(255,255,255,0) 65%); background-size: 300% 100%; animation: sweep 8s ease-in-out 4s infinite" aria-hidden="true"></div></div>
-<div style="margin-top: 20px; font-family: 'Great Vibes', cursive; font-size: 44px; line-height: 1.1; color: #5a3547">Shofa Alifah</div>
-<div style="margin-top: 8px; font-size: 13px; font-weight: 700; letter-spacing: 1px; color: #c9a66b">PUTRI DARI</div>
-<div style="margin-top: 2px; color: #4a3e42">Bapak KH. Aep Saepullah &amp; Ibu Hj. Maryam Oyom</div>
+  <div style="position: absolute; top: 0; left: 14%; width: 12px; height: 18px; border-radius: 80% 0 80% 0; background: linear-gradient(135deg, #8c5673 0%, #5a3547 100%); opacity: 0; filter: drop-shadow(0 3px 5px rgba(90,43,67,0.25)); animation: leafFall1 14s linear 0s infinite;"></div>
+  <div style="position: absolute; top: 0; left: 78%; width: 11px; height: 15px; border-radius: 70% 0 70% 0; background: linear-gradient(135deg, #fbe7e2 0%, #f0c3bf 100%); opacity: 0; filter: drop-shadow(0 3px 5px rgba(140,91,115,0.25)); animation: leafFall2 13s linear 3s infinite;"></div>
+  <div style="position: absolute; top: 0; left: 34%; width: 10px; height: 16px; border-radius: 0 80% 0 80%; background: linear-gradient(135deg, #e8d7b5 0%, #c9a66b 100%); opacity: 0; filter: drop-shadow(0 3px 6px rgba(201,166,107,0.35)); animation: leafFall1 12s linear 6.5s infinite;"></div>
+  <div style="position: absolute; top: 0; left: 52%; width: 13px; height: 20px; border-radius: 85% 0 85% 0; background: linear-gradient(135deg, #704838 0%, #54382c 100%); opacity: 0; filter: drop-shadow(0 4px 8px rgba(90,56,44,0.3)); animation: leafFall2 15s linear 1s infinite;"></div>
+  <div style="position: absolute; top: 0; left: 66%; width: 11px; height: 14px; border-radius: 80% 0 80% 0; background: linear-gradient(135deg, #ffffff 0%, #f7edf2 100%); opacity: 0; filter: drop-shadow(0 3px 5px rgba(140,91,115,0.2)); animation: leafFall1 11s linear 4.5s infinite;"></div>
 </div>
 
-<div class="scroll-reveal-zoom" style="margin: 18px auto; width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg,#f6dcd5,#efc9c0); display: flex; align-items: center; justify-content: center; font-family: 'Great Vibes', cursive; font-size: 34px; color: #fff; box-shadow: 0 12px 20px -10px rgba(217,167,160,0.9); animation: pulse 2.2s ease-in-out infinite;">&amp;</div>
+<div class="motion-up" style="font-size: 12px; letter-spacing: 4px; color: #9c6f84">ASSALAMU’ALAIKUM WARAHMATULLAHI WABARAKATUH</div>
+<div class="motion-up delay-1" style="margin: 16px auto 0; max-width: 340px; font-family: 'Cormorant Garamond', serif; font-size: 19px; font-style: italic; line-height: 1.5; color: #4a3e42">Maha suci Allah SWT yang telah menciptakan makhluk-Nya berpasang-pasangan, semoga ridho-Mu tercurah mengiringi pernikahan kami.</div>
 
-<div class="scroll-reveal-right" style="padding: 30px 20px 28px; border-radius: 28px; background: linear-gradient(165deg, rgba(255,255,255,0.95) 0%, rgba(252,244,248,0.92) 50%, rgba(247,238,233,0.94) 100%); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(201,166,107,0.42); box-shadow: 0 20px 44px -20px rgba(90,43,67,0.25), inset 0 1px 0 rgba(255,255,255,0.95)">
-<div style="margin: 0 auto; position: relative; width: 200px; height: 262px; border-radius: 100px 100px 24px 24px; overflow: hidden; border: 6px solid #fff; box-shadow: 0 20px 34px -16px rgba(90,43,67,0.35); box-sizing: border-box; animation: floaty 7s ease-in-out 1.2s infinite;"><img src="assets/ari.webp" onerror="this.onerror=null;this.src='assets/ari.jpg'" loading="lazy" decoding="async" alt="Ari Fauzi Rahman" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%"><div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg,rgba(255,255,255,0) 35%,rgba(255,255,255,0.3) 50%,rgba(255,255,255,0) 65%); background-size: 300% 100%; animation: sweep 8s ease-in-out 6s infinite" aria-hidden="true"></div></div>
-<div style="margin-top: 20px; font-family: 'Great Vibes', cursive; font-size: 44px; line-height: 1.1; color: #5a3547">Ari Fauzi Rahman</div>
-<div style="margin-top: 8px; font-size: 13px; font-weight: 700; letter-spacing: 1px; color: #c9a66b">PUTRA DARI</div>
-<div style="margin-top: 2px; color: #4a3e42">Bapak Sahidin (Rahimahullah) &amp; Ibu Noneng</div>
+<div class="motion-left delay-2" style="margin-top: 36px; padding: 30px 20px 28px; border-radius: 28px; background: linear-gradient(165deg, rgba(255,255,255,0.95) 0%, rgba(252,244,248,0.92) 50%, rgba(247,238,233,0.94) 100%); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(201,166,107,0.42); box-shadow: 0 20px 44px -20px rgba(90,43,67,0.25), inset 0 1px 0 rgba(255,255,255,0.95)">
+<div class="motion-zoom delay-1" style="margin: 0 auto; position: relative; width: 200px; height: 262px; border-radius: 100px 100px 24px 24px; overflow: hidden; border: 6px solid #fff; box-shadow: 0 20px 34px -16px rgba(90,43,67,0.35); box-sizing: border-box; animation: floaty 7s ease-in-out infinite;"><img src="assets/shofa.webp" onerror="this.onerror=null;this.src='assets/shofa.jpg'" loading="lazy" decoding="async" alt="Shofa Alifah" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%"><div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg,rgba(255,255,255,0) 35%,rgba(255,255,255,0.3) 50%,rgba(255,255,255,0.65)); background-size: 300% 100%; animation: sweep 8s ease-in-out 4s infinite" aria-hidden="true"></div></div>
+<div class="motion-up delay-2" style="margin-top: 20px; font-family: 'Great Vibes', cursive; font-size: 44px; line-height: 1.1; color: #5a3547">Shofa Alifah</div>
+<div class="motion-up delay-2" style="margin-top: 8px; font-size: 13px; font-weight: 700; letter-spacing: 1px; color: #c9a66b">PUTRI DARI</div>
+<div class="motion-up delay-3" style="margin-top: 2px; color: #4a3e42">Bapak KH. Aep Saepullah &amp; Ibu Hj. Maryam Oyom</div>
+</div>
+
+<div class="motion-zoom delay-2" style="margin: 18px auto; width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg,#f6dcd5,#efc9c0); display: flex; align-items: center; justify-content: center; font-family: 'Great Vibes', cursive; font-size: 34px; color: #fff; box-shadow: 0 12px 20px -10px rgba(217,167,160,0.9); animation: pulse 2.2s ease-in-out infinite;">&amp;</div>
+
+<div class="motion-right delay-2" style="padding: 30px 20px 28px; border-radius: 28px; background: linear-gradient(165deg, rgba(255,255,255,0.95) 0%, rgba(252,244,248,0.92) 50%, rgba(247,238,233,0.94) 100%); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(201,166,107,0.42); box-shadow: 0 20px 44px -20px rgba(90,43,67,0.25), inset 0 1px 0 rgba(255,255,255,0.95)">
+<div class="motion-zoom delay-1" style="margin: 0 auto; position: relative; width: 200px; height: 262px; border-radius: 100px 100px 24px 24px; overflow: hidden; border: 6px solid #fff; box-shadow: 0 20px 34px -16px rgba(90,43,67,0.35); box-sizing: border-box; animation: floaty 7s ease-in-out 1.2s infinite;"><img src="assets/ari.webp" onerror="this.onerror=null;this.src='assets/ari.jpg'" loading="lazy" decoding="async" alt="Ari Fauzi Rahman" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%"><div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg,rgba(255,255,255,0) 35%,rgba(255,255,255,0.3) 50%,rgba(255,255,255,0.65)); background-size: 300% 100%; animation: sweep 8s ease-in-out 6s infinite" aria-hidden="true"></div></div>
+<div class="motion-up delay-2" style="margin-top: 20px; font-family: 'Great Vibes', cursive; font-size: 44px; line-height: 1.1; color: #5a3547">Ari Fauzi Rahman</div>
+<div class="motion-up delay-2" style="margin-top: 8px; font-size: 13px; font-weight: 700; letter-spacing: 1px; color: #c9a66b">PUTRA DARI</div>
+<div class="motion-up delay-3" style="margin-top: 2px; color: #4a3e42">Bapak Sahidin (Rahimahullah) &amp; Ibu Noneng</div>
 </div>
 </div>
 
@@ -959,17 +914,17 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
   <div class="section-connector-line" style="width: 60px; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(201,166,107,0.85), transparent);"></div>
 </div>
 <!-- ================= ACARA ================= -->
-<div id="acara" class="scroll-reveal" style="padding: 72px 16px 0; text-align: center">
-<div style="font-size: 12px; letter-spacing: 4px; color: #9c6f84">SAVE THE DATE</div>
-<div style="margin-top: 4px; font-family: 'Great Vibes', cursive; font-size: 46px; line-height: 1.1; color: #5a3547">Waktu &amp; Tempat</div>
+<div id="acara" style="padding: 72px 16px 0; text-align: center">
+<div class="motion-up" style="font-size: 12px; letter-spacing: 4px; color: #9c6f84">SAVE THE DATE</div>
+<div class="motion-up delay-1" style="margin-top: 4px; font-family: 'Great Vibes', cursive; font-size: 46px; line-height: 1.1; color: #5a3547">Waktu &amp; Tempat</div>
 <svg width="120" height="12" style="display: block; margin: 6px auto 0" aria-hidden="true"><use href="#s-orn"></use></svg>
 
-<div style="margin-top: 26px; display: flex; padding: 5px; border-radius: 28px; background: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.9); box-shadow: 0 10px 24px -16px rgba(90,43,67,0.35)">
+<div class="motion-up delay-2" style="margin-top: 26px; display: flex; padding: 5px; border-radius: 28px; background: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.9); box-shadow: 0 10px 24px -16px rgba(90,43,67,0.35)">
 <button onClick="{{pickAkad}}" style="{{akadTab}}">Akad Nikah</button>
 <button onClick="{{pickResepsi}}" style="{{resepsiTab}}">Resepsi</button>
 </div>
 
-<div class="scroll-reveal-zoom" style="margin-top: 16px; padding: 32px 20px 28px; border-radius: 28px; background: linear-gradient(165deg, rgba(255,255,255,0.95) 0%, rgba(252,244,248,0.92) 50%, rgba(247,238,233,0.94) 100%); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(201,166,107,0.42); box-shadow: 0 20px 44px -20px rgba(90,43,67,0.25), inset 0 1px 0 rgba(255,255,255,0.95)">
+<div class="motion-zoom delay-2" style="margin-top: 16px; padding: 32px 20px 28px; border-radius: 28px; background: linear-gradient(165deg, rgba(255,255,255,0.95) 0%, rgba(252,244,248,0.92) 50%, rgba(247,238,233,0.94) 100%); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(201,166,107,0.42); box-shadow: 0 20px 44px -20px rgba(90,43,67,0.25), inset 0 1px 0 rgba(255,255,255,0.95)">
 <div style="font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 600; font-style: italic; color: #5a3547">{{ev.title}}</div>
 <div style="margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 18px">
 <div style="font-size: 15px; color: #70584f">Sabtu</div>
@@ -989,7 +944,7 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
 </div>
 
 <!-- ================= DOA ================= -->
-<div class="scroll-reveal" style="margin: 56px 16px 0; padding: 32px 22px 30px; border-radius: 28px; text-align: center; background: linear-gradient(165deg, rgba(250,238,244,0.95) 0%, rgba(255,255,255,0.92) 50%, rgba(246,236,230,0.95) 100%); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(201,166,107,0.42); box-shadow: 0 20px 44px -20px rgba(90,43,67,0.25), inset 0 1px 0 rgba(255,255,255,0.95)">
+<div class="motion-zoom" style="margin: 56px 16px 0; padding: 32px 22px 30px; border-radius: 28px; text-align: center; background: linear-gradient(165deg, rgba(250,238,244,0.95) 0%, rgba(255,255,255,0.92) 50%, rgba(246,236,230,0.95) 100%); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(201,166,107,0.42); box-shadow: 0 20px 44px -20px rgba(90,43,67,0.25), inset 0 1px 0 rgba(255,255,255,0.95)">
 <div style="font-family: 'Great Vibes', cursive; font-size: 38px; line-height: 1.1; color: #5a3547">Do’a Untuk Kedua Mempelai</div>
 <div style="margin-top: 14px; font-family: 'Amiri', serif; font-size: 19px; direction: rtl; color: #422b35">بَارَكَ اللهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا وَجَمَعَ بَيْنَكُمَا فِى خَيْرٍ</div>
 <div style="margin-top: 14px; font-family: 'Cormorant Garamond', serif; font-size: 19px; font-style: italic; line-height: 1.55; color: #4a3e42">"Semoga Allah memberkahi kalian berdua di waktu bahagia dan memberkahi kalian berdua di waktu susah, serta semoga Allah mempersatukan kalian berdua dalam kebaikan."</div>
@@ -1003,10 +958,10 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
   <div class="section-connector-line" style="width: 60px; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(201,166,107,0.85), transparent);"></div>
 </div>
 <!-- ================= LOVE STORY ================= -->
-<div id="story" class="scroll-reveal" style="padding: 72px 16px 0">
+<div id="story" style="padding: 72px 16px 0">
 <div style="text-align: center">
-<div style="font-size: 12px; letter-spacing: 4px; color: #9c6f84">PERJALANAN KAMI</div>
-<div style="margin-top: 4px; font-family: 'Great Vibes', cursive; font-size: 40px; line-height: 1.2; color: #5a3547">A Journey Written by Allah</div>
+<div class="motion-up" style="font-size: 12px; letter-spacing: 4px; color: #9c6f84">PERJALANAN KAMI</div>
+<div class="motion-up delay-1" style="margin-top: 4px; font-family: 'Great Vibes', cursive; font-size: 40px; line-height: 1.2; color: #5a3547">A Journey Written by Allah</div>
 <svg width="120" height="12" style="display: block; margin: 6px auto 0" aria-hidden="true"><use href="#s-orn"></use></svg>
 </div>
 
@@ -1016,7 +971,7 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
   <div id="timeline-progress-bar" class="timeline-progress-bar"></div>
 </div>
 <sc-for list="{{stories}}" as="st" hint-placeholder-count="4">
-<div class="timeline-step">
+<div class="timeline-step motion-up">
   <div class="timeline-node">
     <span class="timeline-node-num">{{st.step}}</span>
   </div>
@@ -1030,7 +985,7 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
 </div>
 
 <!-- Closing Quote -->
-<div class="scroll-reveal-zoom" style="margin-top: 24px; padding: 20px 22px; border-radius: 20px; background: rgba(255,255,255,0.85); border: 1.5px solid rgba(140,91,115,0.35); text-align: center; box-shadow: 0 14px 28px -16px rgba(90,43,67,0.22)">
+<div class="motion-zoom delay-2" style="margin-top: 24px; padding: 20px 22px; border-radius: 20px; background: rgba(255,255,255,0.85); border: 1.5px solid rgba(140,91,115,0.35); text-align: center; box-shadow: 0 14px 28px -16px rgba(90,43,67,0.22)">
 <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 17px; line-height: 1.6; color: #5a3547; font-weight: 600">
 &ldquo;Sometimes, the most beautiful stories begin with two strangers and a sincere intention.&rdquo;
 </div>
@@ -1044,10 +999,10 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
   <div class="section-connector-line" style="width: 60px; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(201,166,107,0.85), transparent);"></div>
 </div>
 <!-- ================= NASEHAT ================= -->
-<div class="scroll-reveal" style="padding: 72px 16px 0; text-align: center">
-<div style="font-size: 12px; letter-spacing: 4px; color: #9c6f84">TONTONAN PILIHAN</div>
-<div style="margin-top: 4px; font-family: 'Great Vibes', cursive; font-size: 42px; line-height: 1.1; color: #5a3547">Nasehat Pernikahan</div>
-<div style="position: relative; margin-top: 22px; width: 100%; border-radius: 24px; overflow: hidden; box-shadow: 0 24px 44px -20px rgba(90,43,67,0.5); border: 4px solid #fff; background: #000; aspect-ratio: 16 / 9; animation: borderGlow 6s ease-in-out infinite;">
+<div style="padding: 72px 16px 0; text-align: center">
+<div class="motion-up" style="font-size: 12px; letter-spacing: 4px; color: #9c6f84">TONTONAN PILIHAN</div>
+<div class="motion-up delay-1" style="margin-top: 4px; font-family: 'Great Vibes', cursive; font-size: 42px; line-height: 1.1; color: #5a3547">Nasehat Pernikahan</div>
+<div class="motion-zoom delay-2" style="position: relative; margin-top: 22px; width: 100%; border-radius: 24px; overflow: hidden; box-shadow: 0 24px 44px -20px rgba(90,43,67,0.5); border: 4px solid #fff; background: #000; aspect-ratio: 16 / 9; animation: borderGlow 6s ease-in-out infinite;">
 <iframe id="yt-player"
   src="{{ytSrc}}" 
   title="Nasehat Pernikahan: 'Blind Spot' Pernikahan - Ustadz Muhammad Nuzul Dzikri" 
@@ -1072,14 +1027,14 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
   <div class="section-connector-line" style="width: 60px; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(201,166,107,0.85), transparent);"></div>
 </div>
 <!-- ================= GIFT ================= -->
-<div id="gift" class="scroll-reveal" style="padding: 72px 16px 0; text-align: center">
-<div style="font-size: 12px; letter-spacing: 4px; color: #9c6f84">TANDA KASIH</div>
-<div style="margin-top: 4px; font-family: 'Great Vibes', cursive; font-size: 46px; line-height: 1.1; color: #5a3547">Wedding Gift</div>
-<div style="margin: 10px auto 0; max-width: 340px; font-size: 14.5px; color: #5c473e">Do'a Restu dan kehadiran Anda merupakan karunia yang sangat berarti bagi kami. Dan jika memberi adalah ungkapan tanda kasih, Anda dapat memberi hadiah melalui rekening di bawah ini.</div>
+<div id="gift" style="padding: 72px 16px 0; text-align: center">
+<div class="motion-up" style="font-size: 12px; letter-spacing: 4px; color: #9c6f84">TANDA KASIH</div>
+<div class="motion-up delay-1" style="margin-top: 4px; font-family: 'Great Vibes', cursive; font-size: 46px; line-height: 1.1; color: #5a3547">Wedding Gift</div>
+<div class="motion-up delay-2" style="margin: 10px auto 0; max-width: 340px; font-size: 14.5px; color: #5c473e">Do'a Restu dan kehadiran Anda merupakan karunia yang sangat berarti bagi kami. Dan jika memberi adalah ungkapan tanda kasih, Anda dapat memberi hadiah melalui rekening di bawah ini.</div>
 
 <div style="margin-top: 26px; display: flex; flex-direction: column; gap: 16px; text-align: left">
 <sc-for list="{{banks}}" as="bk" hint-placeholder-count="2">
-<div style="position: relative; overflow: hidden; padding: 20px 20px 18px; border-radius: 26px; background: linear-gradient(135deg,#ffffff,#faf2f6 60%,#f6e7e2); border: 1px solid #fff; box-shadow: 0 24px 40px -24px rgba(90,43,67,0.25)">
+<div class="motion-zoom delay-2" style="position: relative; overflow: hidden; padding: 20px 20px 18px; border-radius: 26px; background: linear-gradient(135deg,#ffffff,#faf2f6 60%,#f6e7e2); border: 1px solid #fff; box-shadow: 0 24px 40px -24px rgba(90,43,67,0.25)">
 <div style="position: absolute; right: -40px; top: -40px; width: 140px; height: 140px; border-radius: 50%; background: radial-gradient(circle, rgba(201,166,107,0.3), rgba(201,166,107,0) 70%); animation: blob 8s ease-in-out infinite;"></div>
 <div style="position: relative; display: flex; justify-content: space-between; align-items: center">
 <div style="background: #fff; padding: 6px 14px; border-radius: 12px; display: inline-flex; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid rgba(0,163,157,0.25)">
@@ -1097,7 +1052,7 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
 </sc-for>
 
 <!-- WhatsApp Konfirmasi Hadiah -->
-<div style="margin-top: 20px; text-align: center">
+<div class="motion-up delay-3" style="margin-top: 20px; text-align: center">
 <a href="https://wa.me/6281234567890?text=Halo%20Shofa%20%26%20Ari%2C%20saya%20sudah%20mengirimkan%20tanda%20kasih%2Fhadiah%20pernikahan.%20Semoga%20berkah%20dan%20bahagia%20selalu%21" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 22px; border-radius: 21px; background: #25D366; color: #fff; font-size: 13.5px; font-weight: 700; text-decoration: none; box-shadow: 0 10px 20px -8px rgba(37,211,102,0.6)">
 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.99.539 1.942.825 2.802.825l.006-.001c3.178 0 5.767-2.586 5.768-5.766 0-3.18-2.589-5.771-5.78-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.072-2.195-.551-1.921-.796-3.153-2.756-3.249-2.883-.095-.128-.778-1.034-.778-1.971 0-.937.491-1.398.665-1.589.175-.19.381-.238.508-.238.127 0 .254.002.365.007.119.006.278-.045.435.334.162.391.554 1.353.603 1.452.049.099.082.215.016.347-.066.132-.099.215-.198.33-.099.116-.208.258-.297.347-.1.099-.204.207-.088.406.116.198.515.85 1.104 1.375.76.678 1.401.888 1.599.987.198.099.314.083.43-.05.116-.132.496-.578.628-.776.132-.198.264-.165.446-.099.182.066 1.157.545 1.355.644.198.099.33.149.38.231.05.083.05.479-.094.884z"/></svg>
 Konfirmasi Hadiah via WhatsApp
@@ -1114,14 +1069,14 @@ Konfirmasi Hadiah via WhatsApp
   <div class="section-connector-line" style="width: 60px; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(201,166,107,0.85), transparent);"></div>
 </div>
 <!-- ================= RSVP ================= -->
-<div id="rsvp" class="scroll-reveal" style="padding: 72px 16px 0">
+<div id="rsvp" style="padding: 72px 16px 0">
 <div style="text-align: center">
-<div style="font-size: 12px; letter-spacing: 4px; color: #9c6f84">KONFIRMASI</div>
-<div style="margin-top: 4px; font-family: 'Great Vibes', cursive; font-size: 46px; line-height: 1.1; color: #5a3547">Ucapan &amp; RSVP</div>
-<div style="margin-top: 6px; font-size: 14.5px; color: #5c473e">Berikan do'a dan ucapan terbaik untuk kami.</div>
+<div class="motion-up" style="font-size: 12px; letter-spacing: 4px; color: #9c6f84">KONFIRMASI</div>
+<div class="motion-up delay-1" style="margin-top: 4px; font-family: 'Great Vibes', cursive; font-size: 46px; line-height: 1.1; color: #5a3547">Ucapan &amp; RSVP</div>
+<div class="motion-up delay-2" style="margin-top: 6px; font-size: 14.5px; color: #5c473e">Berikan do'a dan ucapan terbaik untuk kami.</div>
 </div>
 
-<div style="margin-top: 24px; padding: 24px 20px 22px; border-radius: 28px; background: linear-gradient(165deg, rgba(255,255,255,0.95) 0%, rgba(252,244,248,0.92) 50%, rgba(247,238,233,0.94) 100%); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(201,166,107,0.42); box-shadow: 0 20px 44px -20px rgba(90,43,67,0.25), inset 0 1px 0 rgba(255,255,255,0.95)">
+<div class="motion-zoom delay-2" style="margin-top: 24px; padding: 24px 20px 22px; border-radius: 28px; background: linear-gradient(165deg, rgba(255,255,255,0.95) 0%, rgba(252,244,248,0.92) 50%, rgba(247,238,233,0.94) 100%); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(201,166,107,0.42); box-shadow: 0 20px 44px -20px rgba(90,43,67,0.25), inset 0 1px 0 rgba(255,255,255,0.95)">
 <label for="rsvp-nama" style="font-size: 13px; font-weight: 700; color: #5a3547">Nama</label>
 <input id="rsvp-nama" type="text" value="{{fName}}" onInput="{{onName}}" placeholder="Nama lengkap" style="margin-top: 6px; display: block; width: 100%; height: 48px; box-sizing: border-box; padding: 0 16px; border: 1.5px solid #ebdce4; border-radius: 16px; background: #fff; font-size: 15px; color: #3e2f34">
 <label for="rsvp-ucapan" style="margin-top: 14px; display: block; font-size: 13px; font-weight: 700; color: #5a3547">Ucapan</label>
@@ -1206,15 +1161,15 @@ Selanjutnya
 </div>
 
 <!-- ================= PENUTUP ================= -->
-<div style="margin: 72px 16px 0; padding: 40px 22px 44px; border-radius: 32px; text-align: center; position: relative; overflow: hidden; background: linear-gradient(160deg,#6b4054,#4a2839); color: #fff; border: 1px solid rgba(201,166,107,0.3); box-shadow: 0 30px 50px -26px rgba(90,43,67,0.75)">
+<div class="motion-zoom" style="margin: 72px 16px 0; padding: 40px 22px 44px; border-radius: 32px; text-align: center; position: relative; overflow: hidden; background: linear-gradient(160deg,#6b4054,#4a2839); color: #fff; border: 1px solid rgba(201,166,107,0.3); box-shadow: 0 30px 50px -26px rgba(90,43,67,0.75)">
 <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(110deg,rgba(255,255,255,0) 40%,rgba(255,255,255,0.14) 50%,rgba(255,255,255,0) 60%); background-size: 250% 100%; animation: sweep 9s ease-in-out infinite" aria-hidden="true"></div>
 <svg width="120" height="12" style="display: block; margin: 0 auto; opacity: 0.8" aria-hidden="true"><use href="#s-orn"></use></svg>
-<div style="margin-top: 18px; font-family: 'Great Vibes', cursive; font-size: 46px; line-height: 1.1">Terima Kasih</div>
-<div style="margin-top: 14px; font-size: 14.5px; opacity: 0.95">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa dan restu kepada kedua mempelai.</div>
-<div style="margin-top: 22px; font-weight: 700">Wassalamu’alaikum warahmatullahi wabarakatuh</div>
-<div style="margin-top: 30px; font-size: 12px; letter-spacing: 3px; opacity: 0.85">KAMI YANG BERBAHAGIA</div>
-<div style="margin-top: 14px; display: flex; gap: 12px; justify-content: center; font-size: 13.5px; line-height: 1.5; opacity: 0.95"><div style="flex: 1; max-width: 200px">Bapak KH. Aep Saepullah<br>&amp;<br>Ibu Hj. Maryam Oyom</div><div style="flex: 1; max-width: 200px">Bapak Sahidin (Rahimahullah)<br>&amp;<br>Ibu Noneng</div></div>
-<div style="margin-top: 6px; font-family: 'Great Vibes', cursive; font-size: 50px; line-height: 1.1">Shofa &amp; Ari</div>
+<div class="motion-up delay-1" style="margin-top: 18px; font-family: 'Great Vibes', cursive; font-size: 46px; line-height: 1.1">Terima Kasih</div>
+<div class="motion-up delay-2" style="margin-top: 14px; font-size: 14.5px; opacity: 0.95">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa dan restu kepada kedua mempelai.</div>
+<div class="motion-up delay-2" style="margin-top: 22px; font-weight: 700">Wassalamu’alaikum warahmatullahi wabarakatuh</div>
+<div class="motion-up delay-3" style="margin-top: 30px; font-size: 12px; letter-spacing: 3px; opacity: 0.85">KAMI YANG BERBAHAGIA</div>
+<div class="motion-up delay-3" style="margin-top: 14px; display: flex; gap: 12px; justify-content: center; font-size: 13.5px; line-height: 1.5; opacity: 0.95"><div style="flex: 1; max-width: 200px">Bapak KH. Aep Saepullah<br>&amp;<br>Ibu Hj. Maryam Oyom</div><div style="flex: 1; max-width: 200px">Bapak Sahidin (Rahimahullah)<br>&amp;<br>Ibu Noneng</div></div>
+<div class="motion-zoom delay-4" style="margin-top: 6px; font-family: 'Great Vibes', cursive; font-size: 50px; line-height: 1.1">Shofa &amp; Ari</div>
 </div>
 <div style="height: 130px"></div>
 
@@ -1391,21 +1346,40 @@ class Component extends DCLogic {
       this._fsHandler = handleFsChange;
       this._scrollSpy = updateOnScroll;
 
-      // Scroll Reveal IntersectionObserver
+      // Motion Graphics Trigger Engine (Dual-layer: Viewport scroll check + IntersectionObserver)
+      const triggerMotion = () => {
+        const viewH = window.innerHeight || document.documentElement.clientHeight;
+        const targets = document.querySelectorAll(".motion-up, .motion-left, .motion-right, .motion-zoom, .scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-zoom");
+        targets.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= viewH * 0.92) {
+            el.classList.add("revealed");
+          }
+        });
+      };
+
       const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add("revealed");
           }
         });
-      }, { rootMargin: "0px 0px -40px 0px", threshold: 0.1 });
+      }, { rootMargin: "0px 0px -30px 0px", threshold: 0.05 });
+
       const bindReveals = () => {
-        document.querySelectorAll(".scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-zoom").forEach(el => {
+        triggerMotion();
+        document.querySelectorAll(".motion-up, .motion-left, .motion-right, .motion-zoom, .scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-zoom").forEach(el => {
           revealObserver.observe(el);
         });
       };
-      setTimeout(bindReveals, 300);
-      setTimeout(bindReveals, 1200);
+
+      window.addEventListener("scroll", triggerMotion, { passive: true });
+      window.addEventListener("touchmove", triggerMotion, { passive: true });
+      window.addEventListener("resize", triggerMotion, { passive: true });
+      this._motionTrigger = triggerMotion;
+      setTimeout(bindReveals, 100);
+      setTimeout(bindReveals, 600);
+      setTimeout(bindReveals, 1500);
       this._revealObserver = revealObserver;
     } catch (e) {}
   }
@@ -1899,26 +1873,36 @@ class Component extends DCLogic {
         this.setState({ activeNav: "home" });
         const el = document.getElementById("home");
         if (el) el.scrollIntoView({ behavior: "smooth" });
+        setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 350);
+        setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 700);
       },
       pickNavMempelai: () => {
         this.setState({ activeNav: "mempelai" });
         const el = document.getElementById("mempelai");
         if (el) el.scrollIntoView({ behavior: "smooth" });
+        setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 350);
+        setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 700);
       },
       pickNavAcara: () => {
         this.setState({ activeNav: "acara" });
         const el = document.getElementById("acara");
         if (el) el.scrollIntoView({ behavior: "smooth" });
+        setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 350);
+        setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 700);
       },
       pickNavGift: () => {
         this.setState({ activeNav: "gift" });
         const el = document.getElementById("gift");
         if (el) el.scrollIntoView({ behavior: "smooth" });
+        setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 350);
+        setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 700);
       },
       pickNavRsvp: () => {
         this.setState({ activeNav: "rsvp" });
         const el = document.getElementById("rsvp");
         if (el) el.scrollIntoView({ behavior: "smooth" });
+        setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 350);
+        setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 700);
       },
       isFullscreen: !!st.isFullscreen,
       isNotFullscreen: !st.isFullscreen,
@@ -1934,12 +1918,15 @@ class Component extends DCLogic {
         this.playYouTube();
         this.requestFullscreen();
         setTimeout(() => {
+          if (this._motionTrigger) this._motionTrigger();
           if (this._revealObserver) {
-            document.querySelectorAll(".scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-zoom").forEach(el => {
+            document.querySelectorAll(".motion-up, .motion-left, .motion-right, .motion-zoom, .scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-zoom").forEach(el => {
               this._revealObserver.observe(el);
             });
           }
-        }, 300);
+        }, 150);
+        setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 500);
+        setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 1000);
         try { window.scrollTo(0, 0); } catch (e) {}
       },
       musicStyle: "display: flex; " + (st.playing ? "animation: spin 3s linear infinite;" : ""),
