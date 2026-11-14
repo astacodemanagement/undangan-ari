@@ -476,23 +476,59 @@ button,a{touch-action:manipulation}
 .motion-up, .motion-left, .motion-right, .motion-zoom,
 .scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-zoom {
   opacity: 0;
-  transform: translate3d(0, 24px, 0);
-  transition: opacity 720ms ease-out, transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translate3d(0, 42px, 0);
+  transition: opacity 850ms ease-out, transform 1100ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.motion-left, .scroll-reveal-left { transform: translate3d(-20px, 10px, 0); }
-.motion-right, .scroll-reveal-right { transform: translate3d(20px, 10px, 0); }
-.motion-zoom, .scroll-reveal-zoom { transform: translate3d(0, 18px, 0) scale(0.97); }
+.motion-left, .scroll-reveal-left { transform: translate3d(-48px, 20px, 0); }
+.motion-right, .scroll-reveal-right { transform: translate3d(48px, 20px, 0); }
+.motion-zoom, .scroll-reveal-zoom { transform: translate3d(0, 32px, 0) scale(0.93); }
 .motion-up.revealed, .motion-left.revealed, .motion-right.revealed, .motion-zoom.revealed,
 .scroll-reveal.revealed, .scroll-reveal-left.revealed, .scroll-reveal-right.revealed, .scroll-reveal-zoom.revealed {
   opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
 }
-.delay-1 { transition-delay: 80ms; }
-.delay-2 { transition-delay: 160ms; }
-.delay-3 { transition-delay: 240ms; }
-.delay-4 { transition-delay: 320ms; }
+.delay-1 { --reveal-delay: 120ms; transition-delay: var(--reveal-delay); }
+.delay-2 { --reveal-delay: 240ms; transition-delay: var(--reveal-delay); }
+.delay-3 { --reveal-delay: 360ms; transition-delay: var(--reveal-delay); }
+.delay-4 { --reveal-delay: 480ms; transition-delay: var(--reveal-delay); }
 /* Names and headings settle gently, with their original fonts preserved. */
-.elegant-title { transition-duration: 900ms, 1050ms; }
+.elegant-title {
+  clip-path: inset(0 0 100% 0);
+  transform: translate3d(0, 36px, 0);
+  transition: opacity 900ms ease-out, transform 1200ms cubic-bezier(0.22, 1, 0.36, 1), clip-path 1200ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.elegant-title.revealed { clip-path: inset(-20% -10% -25% -10%); }
+.photo-reveal {
+  clip-path: inset(0 0 85% 0 round 100px 100px 24px 24px);
+  transition: opacity 900ms ease-out, transform 1300ms cubic-bezier(0.22, 1, 0.36, 1), clip-path 1400ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.photo-reveal.revealed { clip-path: inset(-5% -5% -5% -5% round 100px 100px 24px 24px); }
+.photo-reveal img {
+  transform: scale(1.18);
+  transition: transform 1600ms cubic-bezier(0.22, 1, 0.36, 1) 120ms;
+}
+.photo-reveal.revealed img { transform: scale(1); }
+.photo-reveal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255,244,223,0.28) 50%, transparent 70%);
+}
+.photo-reveal.revealed::after { animation: portraitLight 1400ms ease-out 300ms both; }
+@keyframes portraitLight {
+  0% { opacity: 0; transform: translateX(-110%); }
+  25% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(110%); }
+}
+.section-connector .section-connector-line {
+  transform: scaleX(0.15);
+  transition: transform 1400ms cubic-bezier(0.22, 1, 0.36, 1) 150ms;
+}
+.section-connector.revealed .section-connector-line { transform: scaleX(1); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto !important; }
   *, *::before, *::after {
@@ -507,7 +543,9 @@ button,a{touch-action:manipulation}
     opacity: 1;
     transform: none;
   }
-  .orb { display: none; }
+  .elegant-title, .photo-reveal { clip-path: none; }
+  .photo-reveal img, .section-connector .section-connector-line { transform: none; }
+  .photo-reveal::after, .orb { display: none; }
 }
 
 /* Connecting Section Dividers */
@@ -810,7 +848,7 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
 <div style="position: absolute; top: 470px; left: 86%; width: 3px; height: 3px; border-radius: 50%; background: #d4b27a; opacity: 0; animation: rise 15s ease-in 4s infinite" aria-hidden="true"></div>
 <div style="position: absolute; top: -70px; right: -60px; width: 230px; height: 230px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.92), rgba(140,86,115,0.25) 70%)"></div>
 <div class="motion-up" style="position: relative; font-size: 12px; font-weight: 500; letter-spacing: 5px; color: #7a6246;">THE WEDDING OF</div>
-<div class="motion-zoom delay-1" style="position: relative; margin-top: 26px; padding: 9px; border-radius: 150px 150px 34px 34px; border: 1.5px dashed #8c5673; ">
+<div class="motion-zoom delay-1 photo-reveal" style="position: relative; margin-top: 26px; padding: 9px; border-radius: 150px 150px 34px 34px; border: 1.5px dashed #8c5673; ">
 <div style="position: relative; width: 240px; height: 380px; border-radius: 130px 130px 26px 26px; overflow: hidden; box-shadow: 0 24px 40px -18px rgba(90,43,67,0.35)">
 <img src="assets/couple-121212.webp" alt="Ilustrasi Shofa dan Ari" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%">
 </div>
@@ -841,7 +879,7 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
 </div>
 
 
-<div class="section-connector" aria-hidden="true">
+<div class="section-connector motion-up" aria-hidden="true">
   <div class="section-connector-line" style="width: 60px; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(201,166,107,0.85), transparent);"></div>
   <svg width="24" height="24" viewBox="0 0 24 24" style="color: #c9a66b; filter: drop-shadow(0 0 6px rgba(201,166,107,0.6)); margin: 0 4px;"><path d="M12 2 L14.5 9.5 L22 12 L14.5 14.5 L12 22 L9.5 14.5 L2 12 L9.5 9.5 Z" fill="currentColor"></path></svg>
   <div class="section-connector-line" style="width: 60px; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(201,166,107,0.85), transparent);"></div>
@@ -861,7 +899,7 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
 <div class="motion-up delay-1" style="margin: 16px auto 0; max-width: 340px; font-family: 'Cormorant Garamond', serif; font-size: 19px; font-style: italic; line-height: 1.5; color: #4a3e42">Maha suci Allah SWT yang telah menciptakan makhluk-Nya berpasang-pasangan, semoga ridho-Mu tercurah mengiringi pernikahan kami.</div>
 
 <div class="motion-left delay-2" style="margin-top: 36px; padding: 30px 20px 28px; border-radius: 28px; background: linear-gradient(165deg, rgba(255,255,255,0.95) 0%, rgba(252,244,248,0.92) 50%, rgba(247,238,233,0.94) 100%); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(201,166,107,0.42); box-shadow: 0 20px 44px -20px rgba(90,43,67,0.25), inset 0 1px 0 rgba(255,255,255,0.95)">
-<div class="motion-zoom delay-1" style="margin: 0 auto; position: relative; width: 200px; height: 262px; border-radius: 100px 100px 24px 24px; overflow: hidden; border: 5px solid #fff; outline: 1.5px dashed rgba(140,86,115,0.5); outline-offset: -1px; box-shadow: 0 20px 34px -16px rgba(90,43,67,0.35); box-sizing: border-box; "><img src="assets/shofa-half-body.webp" loading="lazy" decoding="async" alt="Shofa Alifah" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%"></div>
+<div class="motion-zoom delay-1 photo-reveal" style="margin: 0 auto; position: relative; width: 200px; height: 262px; border-radius: 100px 100px 24px 24px; overflow: hidden; border: 5px solid #fff; outline: 1.5px dashed rgba(140,86,115,0.5); outline-offset: -1px; box-shadow: 0 20px 34px -16px rgba(90,43,67,0.35); box-sizing: border-box; "><img src="assets/shofa-half-body.webp" loading="lazy" decoding="async" alt="Shofa Alifah" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%"></div>
 <div class="motion-up delay-2 elegant-title" style="margin-top: 20px; font-family: 'Great Vibes', cursive; font-size: 44px; line-height: 1.1; color: #5a3547">Shofa Alifah</div>
 <div class="motion-up delay-2" style="margin-top: 8px; font-size: 13px; font-weight: 700; letter-spacing: 1px; color: #c9a66b">PUTRI DARI</div>
 <div class="motion-up delay-3" style="margin-top: 2px; color: #4a3e42">Bapak KH. Aep Saepullah &amp; Ibu Hj. Maryam Oyom</div>
@@ -870,7 +908,7 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
 <div class="motion-zoom delay-2 elegant-title" style="margin: 18px auto; width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg,#8c5673,#5a3547); display: flex; align-items: center; justify-content: center; font-family: 'Great Vibes', cursive; font-size: 34px; color: #fff; border: 2px solid rgba(255,255,255,0.85); box-shadow: 0 12px 24px -8px rgba(90,43,67,0.7); ">&amp;</div>
 
 <div class="motion-right delay-2" style="padding: 30px 20px 28px; border-radius: 28px; background: linear-gradient(165deg, rgba(255,255,255,0.95) 0%, rgba(252,244,248,0.92) 50%, rgba(247,238,233,0.94) 100%); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(201,166,107,0.42); box-shadow: 0 20px 44px -20px rgba(90,43,67,0.25), inset 0 1px 0 rgba(255,255,255,0.95)">
-<div class="motion-zoom delay-1" style="margin: 0 auto; position: relative; width: 200px; height: 262px; border-radius: 100px 100px 24px 24px; overflow: hidden; border: 5px solid #fff; outline: 1.5px dashed rgba(140,86,115,0.5); outline-offset: -1px; box-shadow: 0 20px 34px -16px rgba(90,43,67,0.35); box-sizing: border-box; "><img src="assets/ari-half-body.webp" loading="lazy" decoding="async" alt="Ari Fauzi Rahman" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%"></div>
+<div class="motion-zoom delay-1 photo-reveal" style="margin: 0 auto; position: relative; width: 200px; height: 262px; border-radius: 100px 100px 24px 24px; overflow: hidden; border: 5px solid #fff; outline: 1.5px dashed rgba(140,86,115,0.5); outline-offset: -1px; box-shadow: 0 20px 34px -16px rgba(90,43,67,0.35); box-sizing: border-box; "><img src="assets/ari-half-body.webp" loading="lazy" decoding="async" alt="Ari Fauzi Rahman" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%"></div>
 <div class="motion-up delay-2 elegant-title" style="margin-top: 20px; font-family: 'Great Vibes', cursive; font-size: 44px; line-height: 1.1; color: #5a3547">Ari Fauzi Rahman</div>
 <div class="motion-up delay-2" style="margin-top: 8px; font-size: 13px; font-weight: 700; letter-spacing: 1px; color: #c9a66b">PUTRA DARI</div>
 <div class="motion-up delay-3" style="margin-top: 2px; color: #4a3e42">Bapak Sahidin (Rahimahullah) &amp; Ibu Noneng</div>
@@ -878,7 +916,7 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
 </div>
 
 
-<div class="section-connector" aria-hidden="true">
+<div class="section-connector motion-up" aria-hidden="true">
   <div class="section-connector-line" style="width: 60px; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(201,166,107,0.85), transparent);"></div>
   <svg width="24" height="24" viewBox="0 0 24 24" style="color: #c9a66b; filter: drop-shadow(0 0 6px rgba(201,166,107,0.6)); margin: 0 4px;"><path d="M12 2 L14.5 9.5 L22 12 L14.5 14.5 L12 22 L9.5 14.5 L2 12 L9.5 9.5 Z" fill="currentColor"></path></svg>
   <div class="section-connector-line" style="width: 60px; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(201,166,107,0.85), transparent);"></div>
@@ -922,7 +960,7 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
 </div>
 
 
-<div class="section-connector" aria-hidden="true">
+<div class="section-connector motion-up" aria-hidden="true">
   <div class="section-connector-line" style="width: 60px; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(201,166,107,0.85), transparent);"></div>
   <svg width="24" height="24" viewBox="0 0 24 24" style="color: #c9a66b; filter: drop-shadow(0 0 6px rgba(201,166,107,0.6)); margin: 0 4px;"><path d="M12 2 L14.5 9.5 L22 12 L14.5 14.5 L12 22 L9.5 14.5 L2 12 L9.5 9.5 Z" fill="currentColor"></path></svg>
   <div class="section-connector-line" style="width: 60px; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(201,166,107,0.85), transparent);"></div>
@@ -963,7 +1001,7 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
 </div>
 
 
-<div class="section-connector" aria-hidden="true">
+<div class="section-connector motion-up" aria-hidden="true">
   <div class="section-connector-line" style="width: 60px; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(201,166,107,0.85), transparent);"></div>
   <svg width="24" height="24" viewBox="0 0 24 24" style="color: #c9a66b; filter: drop-shadow(0 0 6px rgba(201,166,107,0.6)); margin: 0 4px;"><path d="M12 2 L14.5 9.5 L22 12 L14.5 14.5 L12 22 L9.5 14.5 L2 12 L9.5 9.5 Z" fill="currentColor"></path></svg>
   <div class="section-connector-line" style="width: 60px; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(201,166,107,0.85), transparent);"></div>
@@ -991,7 +1029,7 @@ input:focus,textarea:focus{border-color:#8c5673 !important;box-shadow:0 0 0 4px 
 </div>
 
 
-<div class="section-connector" aria-hidden="true">
+<div class="section-connector motion-up" aria-hidden="true">
   <div class="section-connector-line" style="width: 60px; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(201,166,107,0.85), transparent);"></div>
   <svg width="24" height="24" viewBox="0 0 24 24" style="color: #c9a66b; filter: drop-shadow(0 0 6px rgba(201,166,107,0.6)); margin: 0 4px;"><path d="M12 2 L14.5 9.5 L22 12 L14.5 14.5 L12 22 L9.5 14.5 L2 12 L9.5 9.5 Z" fill="currentColor"></path></svg>
   <div class="section-connector-line" style="width: 60px; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(201,166,107,0.85), transparent);"></div>
@@ -1033,7 +1071,7 @@ Konfirmasi Hadiah via WhatsApp
 </div>
 
 
-<div class="section-connector" aria-hidden="true">
+<div class="section-connector motion-up" aria-hidden="true">
   <div class="section-connector-line" style="width: 60px; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(201,166,107,0.85), transparent);"></div>
   <svg width="24" height="24" viewBox="0 0 24 24" style="color: #c9a66b; filter: drop-shadow(0 0 6px rgba(201,166,107,0.6)); margin: 0 4px;"><path d="M12 2 L14.5 9.5 L22 12 L14.5 14.5 L12 22 L9.5 14.5 L2 12 L9.5 9.5 Z" fill="currentColor"></path></svg>
   <div class="section-connector-line" style="width: 60px; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(201,166,107,0.85), transparent);"></div>
