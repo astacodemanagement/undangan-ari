@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 800px;
+      height: 800px;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 30%, #fff9f6 0%, #fbece7 45%, #f4dcd3 100%);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    
+    /* Background subtle damask pattern overlay */
+    .bg-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.16;
+      background-image: 
+        radial-gradient(circle at 20% 20%, #8c5673 1px, transparent 1px),
+        radial-gradient(circle at 80% 80%, #c9a66b 1.5px, transparent 1.5px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+
+    /* Outer luxury border */
+    .border-frame {
+      position: absolute;
+      inset: 18px;
+      border: 2px solid rgba(201, 166, 107, 0.45);
+      border-radius: 28px;
+      pointer-events: none;
+    }
+    .border-inner {
+      position: absolute;
+      inset: 26px;
+      border: 1px dashed rgba(140, 86, 115, 0.35);
+      border-radius: 20px;
+      pointer-events: none;
+    }
+
+    /* Hanging lantern top right */
+    .lantern {
+      position: absolute;
+      top: 0;
+      right: 56px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .lantern-cord {
+      width: 1.5px;
+      height: 65px;
+      background: linear-gradient(#c9a66b, rgba(201,166,107,0.3));
+    }
+
+    /* Main Container */
+    .content-box {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 40px;
+    }
+
+    .badge-sub {
+      font-family: 'Cinzel', serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 6px;
+      color: #8c5673;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    /* Gapura Arch Photo Frame (Vertikal Mewah) */
+    .arch-frame {
+      position: relative;
+      width: 260px;
+      height: 330px;
+      border-radius: 130px 130px 24px 24px;
+      overflow: hidden;
+      border: 6px solid #ffffff;
+      box-shadow: 
+        0 0 0 3px rgba(201, 166, 107, 0.65),
+        0 14px 28px -10px rgba(90, 43, 67, 0.35);
+      margin-bottom: 18px;
+      background: #eee;
+    }
+    .arch-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 22%;
+    }
+
+    /* Bunga Plum Real Hiasan di sudut kubah */
+    .plum-flower-1 {
+      position: absolute;
+      top: -10px;
+      left: -14px;
+      width: 68px;
+      height: 68px;
+      z-index: 12;
+      filter: drop-shadow(0 6px 12px rgba(90,43,67,0.35));
+    }
+    .plum-flower-2 {
+      position: absolute;
+      bottom: -10px;
+      right: -14px;
+      width: 58px;
+      height: 58px;
+      z-index: 12;
+      filter: drop-shadow(0 6px 12px rgba(90,43,67,0.35));
+      transform: rotate(45deg);
+    }
+    .plum-petal {
+      position: absolute;
+      top: 35px;
+      left: 45px;
+      width: 32px;
+      height: 38px;
+      z-index: 11;
+      filter: drop-shadow(0 4px 8px rgba(90,43,67,0.25));
+      transform: rotate(-25deg);
+    }
+
+    /* Kaligrafi Mempelai Shofa & Ari */
+    .names-calligraphy {
+      font-family: 'Great Vibes', cursive;
+      font-size: 76px;
+      line-height: 1.1;
+      padding: 0 10px;
+      background: linear-gradient(110deg, #5a3547 0%, #a8587d 35%, #7a4628 65%, #5a3547 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 4px rgba(90,43,67,0.15));
+      margin-bottom: 6px;
+    }
+
+    .date-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #634b3f;
+      letter-spacing: 2px;
+      margin-bottom: 18px;
+    }
+
+    /* Pill Open Button (Aesthetic & Jelas) */
+    .open-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 28px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #7d4e64, #5a3547);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      box-shadow: 0 10px 22px -6px rgba(90, 43, 67, 0.5);
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-pattern"></div>
+  <div class="border-frame"></div>
+  <div class="border-inner"></div>
+
+  <!-- Lantern -->
+  <div class="lantern">
+    <div class="lantern-cord"></div>
+    <svg width="30" height="52" viewBox="0 0 26 46">
+      <g fill="none" stroke="#a67c52" stroke-width="1.3" stroke-linecap="round">
+        <path d="M13 0v6"></path>
+        <path d="M9 6h8"></path>
+        <path d="M7 12Q13 6 19 12L21 28Q13 34 5 28Z" fill="rgba(255,226,160,0.65)"></path>
+        <path d="M13 9v22M9 11l-1 18M17 11l1 18"></path>
+        <path d="M8 30h10l-2 6h-6z" fill="#e7d3a6"></path>
+        <path d="M13 36v8"></path>
+      </g>
+      <ellipse cx="13" cy="21" rx="3.5" ry="5.5" fill="#ffd98a"></ellipse>
+    </svg>
+  </div>
+
+  <div class="content-box">
+    <div class="badge-sub">THE WEDDING OF</div>
+
+    <div style="position: relative;">
+      <img class="plum-flower-1" src="assets/plum-blossom-real.png" alt="Plum Blossom">
+      <img class="plum-petal" src="assets/plum-petal-real.png" alt="Plum Petal">
+      
+      <div class="arch-frame">
+        <img src="assets/couple-121212.webp" alt="Shofa & Ari">
+      </div>
+
+      <img class="plum-flower-2" src="assets/plum-blossom-real.png" alt="Plum Blossom">
+    </div>
+
+    <div class="names-calligraphy">Shofa &amp; Ari</div>
+    <div class="date-text">Sabtu, 26 Desember 2026</div>
+
+    <div class="open-pill">
+      <span>Buka Undangan</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>
