@@ -54,7 +54,13 @@ begin
   end if;
 end $$;
 
--- 7. (Opsional) Data ucapan awal sebagai contoh
+-- 7. Catatan Integrasi Fitur:
+-- Tabel 'wishes' menampung 2 tipe data:
+-- a. Ucapan & RSVP Tamu: status = 'Hadir · N tamu' atau 'Tidak hadir', msg = ucapan doa.
+-- b. Doa Cinta (Floating Love Reaction): status = 'Love', msg = '❤️ Kirim Doa Cinta'.
+-- Panel Admin (admin.html) otomatis memisahkan penghitungan RSVP dan Doa Cinta secara realtime.
+
+-- 8. (Opsional) Data ucapan awal sebagai contoh
 insert into public.wishes (name, msg, status, count)
 values 
   ('Rofi Munawar', 'Hormat dan selamat atas pernikahannya. Semoga sakinah, mawaddah, warahmah.', 'Hadir · 2 tamu', 2)

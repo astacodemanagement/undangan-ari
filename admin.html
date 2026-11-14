@@ -398,6 +398,10 @@
         <div class="stat-label">Total Tamu Hadir</div>
         <div id="statCount" class="stat-val gold">0 Orang</div>
       </div>
+      <div class="stat-card">
+        <div class="stat-label">Doa Cinta (Love)</div>
+        <div id="statLove" class="stat-val" style="color: #9c27b0;">88 ❤️</div>
+      </div>
     </div>
 
     <!-- Controls -->
@@ -499,16 +503,22 @@
     }
 
     function updateStats() {
-      const total = allWishes.length;
-      const hadirList = allWishes.filter(w => (w.status || "").toLowerCase().includes("hadir") && !(w.status || "").toLowerCase().includes("tidak"));
+      const normalWishes = allWishes.filter(w => (w.status || "") !== "Love");
+      const loveWishes = allWishes.filter(w => (w.status || "") === "Love");
+
+      const total = normalWishes.length;
+      const hadirList = normalWishes.filter(w => (w.status || "").toLowerCase().includes("hadir") && !(w.status || "").toLowerCase().includes("tidak"));
       const hadir = hadirList.length;
-      const tidak = allWishes.filter(w => (w.status || "").toLowerCase().includes("tidak")).length;
+      const tidak = normalWishes.filter(w => (w.status || "").toLowerCase().includes("tidak")).length;
       const totalPax = hadirList.reduce((acc, curr) => acc + (parseInt(curr.count, 10) || 1), 0);
+      const totalLove = 88 + loveWishes.length;
 
       document.getElementById("statTotal").textContent = total;
       document.getElementById("statHadir").textContent = hadir;
       document.getElementById("statTidak").textContent = tidak;
       document.getElementById("statCount").textContent = totalPax + " Orang";
+      const loveEl = document.getElementById("statLove");
+      if (loveEl) loveEl.textContent = totalLove + " ❤️";
 
       document.getElementById("countAll").textContent = total;
       document.getElementById("countHadir").textContent = hadir;
@@ -524,7 +534,7 @@
 
     function renderList() {
       const query = (document.getElementById("searchInput").value || "").toLowerCase().trim();
-      let filtered = allWishes.filter(w => {
+      let filtered = allWishes.filter(w => (w.status || "") !== "Love").filter(w => {
         const isHadir = (w.status || "").toLowerCase().includes("hadir") && !(w.status || "").toLowerCase().includes("tidak");
         if (currentFilter === "hadir" && !isHadir) return false;
         if (currentFilter === "tidak" && isHadir) return false;
@@ -603,12 +613,13 @@
     }
 
     function exportCSV() {
-      if (allWishes.length === 0) {
+      const normalWishes = allWishes.filter(w => (w.status || "") !== "Love");
+      if (normalWishes.length === 0) {
         alert("Belum ada data ucapan untuk diunduh.");
         return;
       }
       let csv = "ID,Tanggal,Nama Tamu,Status Kehadiran,Jumlah Tamu,Pesan Ucapan & Doa\n";
-      allWishes.forEach(w => {
+      normalWishes.forEach(w => {
         const cleanMsg = (w.msg || "").replace(/"/g, '""').replace(/\n/g, ' ');
         const cleanName = (w.name || "").replace(/"/g, '""');
         csv += `"${w.id}","${w.created_at}","${cleanName}","${w.status || ''}",${w.count || 1},"${cleanMsg}"\n`;

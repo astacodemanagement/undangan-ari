@@ -373,6 +373,93 @@ window.SUPABASE_CONFIG = {
   <source src="assets/hiya-zaujati-light.mp3" type="audio/mpeg">
 </audio>
 
+<!-- ================= EFEK MOTION GRAPHIC BUKA SURAT UNDANGAN ================= -->
+<div id="envelope-overlay" class="envelope-overlay" style="display: none;">
+  <div class="env-stage">
+    <!-- Sparkle particles -->
+    <div class="env-sparkles">
+      <div class="env-sparkle"></div>
+      <div class="env-sparkle"></div>
+      <div class="env-sparkle"></div>
+      <div class="env-sparkle"></div>
+      <div class="env-sparkle"></div>
+      <div class="env-sparkle"></div>
+      <div class="env-sparkle"></div>
+      <div class="env-sparkle"></div>
+    </div>
+    
+    <!-- Envelope Unit -->
+    <div class="env-unit">
+      <!-- Back pocket -->
+      <div class="env-back"></div>
+      
+      <!-- Invitation Letter Card that rises out -->
+      <div class="env-letter-card">
+        <div class="env-letter-inner">
+          <div class="env-orn">✦ &nbsp;·&nbsp; ❦ &nbsp;·&nbsp; ✦</div>
+          <div class="env-subtitle">THE WEDDING OF</div>
+          <div class="env-names">Shofa &amp; Ari</div>
+          <div class="env-date">Sabtu, 26 Desember 2026</div>
+          <div class="env-heart">♥</div>
+        </div>
+      </div>
+      
+      <!-- Front pocket covering bottom of letter -->
+      <div class="env-front-pocket">
+        <svg viewBox="0 0 290 180" width="100%" height="100%" preserveAspectRatio="none" style="display:block;">
+          <defs>
+            <linearGradient id="envFlapL" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#f5e8ef" />
+              <stop offset="100%" stop-color="#eddbe5" />
+            </linearGradient>
+            <linearGradient id="envFlapR" x1="100%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#f2e3ec" />
+              <stop offset="100%" stop-color="#e8d5e0" />
+            </linearGradient>
+            <linearGradient id="envFlapB" x1="0%" y1="100%" x2="0%" y2="0%">
+              <stop offset="0%" stop-color="#fdf8fa" />
+              <stop offset="100%" stop-color="#f7ebf2" />
+            </linearGradient>
+            <filter id="envPocketShadow" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="-2" stdDeviation="3" flood-color="rgba(90,43,67,0.15)" />
+            </filter>
+          </defs>
+          <!-- Left side fold -->
+          <polygon points="0,0 145,100 0,180" fill="url(#envFlapL)" />
+          <!-- Right side fold -->
+          <polygon points="290,0 145,100 290,180" fill="url(#envFlapR)" />
+          <!-- Bottom fold covering center -->
+          <polygon points="0,180 145,88 290,180" fill="url(#envFlapB)" stroke="rgba(201,166,107,0.3)" stroke-width="0.8" filter="url(#envPocketShadow)" />
+        </svg>
+      </div>
+
+      <!-- Top Flap (folds upward) -->
+      <div class="env-top-flap">
+        <svg viewBox="0 0 290 126" width="100%" height="100%" preserveAspectRatio="none" style="display:block;">
+          <defs>
+            <linearGradient id="envFlapTop" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#faf2f6" />
+              <stop offset="100%" stop-color="#eddbe5" />
+            </linearGradient>
+          </defs>
+          <polygon points="0,0 290,0 145,124" fill="url(#envFlapTop)" stroke="rgba(201,166,107,0.4)" stroke-width="1" />
+        </svg>
+      </div>
+
+      <!-- Wax Seal Stamp -->
+      <div class="env-wax-seal">
+        <div class="env-wax-inner">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#fdfbf7">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    
+    <div class="env-caption">Membuka Lembaran Bahagia...</div>
+  </div>
+</div>
+
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -434,6 +521,237 @@ button,a{touch-action:manipulation}
   .bottom-nav-container{gap:3px;padding:5px 6px;bottom:12px;bottom:max(12px, env(safe-area-inset-bottom, 12px))}
   .floating-love-box{bottom:calc(68px + env(safe-area-inset-bottom, 0px)) !important;left:10px !important}
   .floating-music-box{bottom:calc(68px + env(safe-area-inset-bottom, 0px)) !important;right:10px !important}
+}
+
+/* ================= LUXURY ENVELOPE OPENING ANIMATION ================= */
+.envelope-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 40%, rgba(253,249,247,0.98), rgba(235,220,228,0.99));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+.envelope-overlay.env-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.envelope-overlay.env-fade-out {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.env-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.85) translateY(20px);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.4s ease;
+}
+.env-active .env-stage {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.env-unit {
+  position: relative;
+  width: 290px;
+  height: 180px;
+  perspective: 1200px;
+}
+
+/* Back of envelope */
+.env-back {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #e8d7e0 0%, #ddc4d2 100%);
+  border-radius: 12px;
+  z-index: 1;
+  box-shadow: 0 24px 50px -10px rgba(90,43,67,0.38), 0 4px 12px rgba(90,43,67,0.15);
+  border: 1px solid rgba(255,255,255,0.6);
+}
+
+/* Invitation letter card */
+.env-letter-card {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 8px;
+  height: 164px;
+  background: linear-gradient(145deg, #ffffff 0%, #fdfaf6 100%);
+  border-radius: 8px;
+  z-index: 2;
+  border: 1.5px solid #d4af72;
+  box-shadow: 0 4px 18px rgba(90,43,67,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(0);
+  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.85s, box-shadow 0.85s ease 0.85s;
+}
+.env-active .env-letter-card {
+  transform: translateY(-138px) scale(1.05);
+  box-shadow: 0 20px 40px -8px rgba(90,43,67,0.32);
+}
+.env-letter-inner {
+  text-align: center;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.env-orn {
+  font-size: 10px;
+  color: #c9a66b;
+  letter-spacing: 2px;
+}
+.env-subtitle {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: #7a6246;
+  margin-top: 4px;
+}
+.env-names {
+  font-family: 'Great Vibes', cursive;
+  font-size: 26px;
+  line-height: 1.2;
+  margin-top: 2px;
+  background: linear-gradient(100deg, #5a3547 0%, #c9a66b 50%, #5a3547 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.env-date {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: #5c473e;
+  margin-top: 4px;
+  font-weight: 500;
+}
+.env-heart {
+  color: #c9a66b;
+  font-size: 14px;
+  margin-top: 4px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Front pocket of envelope */
+.env-front-pocket {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Top flap folds open */
+.env-top-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 290px;
+  height: 126px;
+  transform-origin: top center;
+  z-index: 4;
+  transform: rotateX(0deg);
+  transition: transform 0.7s cubic-bezier(0.3, 0, 0.7, 0) 0.35s, z-index 0.01s 0.7s;
+}
+.env-active .env-top-flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+/* Wax seal */
+.env-wax-seal {
+  position: absolute;
+  top: 106px;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  z-index: 5;
+  transition: transform 0.4s cubic-bezier(0.3, 0, 0.7, 0) 0.15s, opacity 0.35s ease 0.2s;
+}
+.env-active .env-wax-seal {
+  transform: translate(-50%, -50%) scale(0) rotate(35deg);
+  opacity: 0;
+}
+.env-wax-inner {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #8c5673, #5a3547 60%, #4a2839);
+  box-shadow: 0 4px 14px rgba(90,43,67,0.45), inset 0 1px 2px rgba(255,255,255,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Caption under envelope */
+.env-caption {
+  margin-top: 24px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #5a3547;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.5s ease 0.25s;
+}
+.env-active .env-caption {
+  opacity: 0.85;
+  transform: translateY(0);
+}
+
+/* Sparkles */
+.env-sparkles {
+  position: absolute;
+  inset: -60px;
+  pointer-events: none;
+  z-index: 6;
+  opacity: 0;
+}
+.env-active .env-sparkles {
+  animation: envSparkleBurst 0.6s ease 1.1s forwards;
+}
+@keyframes envSparkleBurst {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.env-sparkle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #c9a66b;
+}
+.env-sparkle:nth-child(1) { top: 25%; left: 8%; animation: sparkleFloat 1.2s ease-out 1.1s both; background: #c9a66b; }
+.env-sparkle:nth-child(2) { top: 15%; right: 12%; animation: sparkleFloat 1.2s ease-out 1.2s both; background: #8c5673; width: 6px; height: 6px; }
+.env-sparkle:nth-child(3) { top: 35%; left: 4%; animation: sparkleFloat 1.2s ease-out 1.3s both; background: #5a3547; width: 5px; height: 5px; }
+.env-sparkle:nth-child(4) { top: 10%; right: 6%; animation: sparkleFloat 1.2s ease-out 1.15s both; background: #c9a66b; width: 7px; height: 7px; }
+.env-sparkle:nth-child(5) { top: 28%; left: 18%; animation: sparkleFloat 1.2s ease-out 1.25s both; background: #b3708e; width: 5px; height: 5px; }
+.env-sparkle:nth-child(6) { top: 5%; left: 45%; animation: sparkleFloat 1.2s ease-out 1.05s both; background: #c9a66b; width: 9px; height: 9px; }
+.env-sparkle:nth-child(7) { top: 22%; right: 22%; animation: sparkleFloat 1.2s ease-out 1.35s both; background: #5a3547; width: 4px; height: 4px; }
+.env-sparkle:nth-child(8) { top: 38%; right: 8%; animation: sparkleFloat 1.2s ease-out 1.1s both; background: #8c5673; width: 6px; height: 6px; }
+@keyframes sparkleFloat {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  30% { opacity: 1; transform: translateY(-30px) scale(1.1); }
+  100% { transform: translateY(-80px) scale(0); opacity: 0; }
 }
 
 /* ================= FLOATING FULLSCREEN TOGGLE BUTTON ================= */
@@ -1563,6 +1881,7 @@ class Component extends DCLogic {
           if (window.supabase && typeof window.supabase.createClient === "function") {
             this.supabase = window.supabase.createClient(url, key);
             this.fetchWishes();
+            this.fetchLoveCount();
             this.subscribeWishes();
             return true;
           }
@@ -1599,6 +1918,23 @@ class Component extends DCLogic {
     }
   }
 
+  async fetchLoveCount() {
+    if (!this.supabase) return;
+    try {
+      const { count, error } = await this.supabase
+        .from("wishes")
+        .select("id", { count: "exact", head: true })
+        .eq("status", "Love");
+      if (!error && typeof count === "number") {
+        const totalLove = 88 + count;
+        this.setState({ loveCount: totalLove });
+        try { localStorage.setItem("shofa_ari_love", String(totalLove)); } catch (e) {}
+      }
+    } catch (e) {
+      console.error("Fetch love count error:", e);
+    }
+  }
+
   subscribeWishes() {
     if (!this.supabase) return;
     try {
@@ -1618,6 +1954,14 @@ class Component extends DCLogic {
           if (payload.eventType === "INSERT") {
             const item = payload.new;
             if (!item) return;
+            if (item.status === "Love") {
+              this.setState(prev => {
+                const next = (prev.loveCount || 88) + 1;
+                try { localStorage.setItem("shofa_ari_love", String(next)); } catch (e) {}
+                return { loveCount: next };
+              });
+              return;
+            }
             this.setState((prev) => {
               const list = prev.wishes || [];
               if (item.id && list.some(w => w.id === item.id)) {
@@ -1775,6 +2119,7 @@ class Component extends DCLogic {
     const filterType = st.wishFilter || "all";
     const searchQ = (st.wishSearch || "").toLowerCase().trim();
     const filteredWishes = (st.wishes || []).filter((w) => {
+      if (w?.status === "Love") return false;
       const name = String(w?.name || "").toLowerCase();
       const msg = String(w?.msg || "").toLowerCase();
       const status = String(w?.status || "").toLowerCase();
@@ -1848,6 +2193,22 @@ class Component extends DCLogic {
         const nextLove = (st.loveCount || 88) + 1;
         this.setState({ loveCount: nextLove });
         try { localStorage.setItem("shofa_ari_love", String(nextLove)); } catch(e) {}
+        
+        if (this.supabase) {
+          try {
+            this.supabase.from("wishes").insert([{
+              name: this.guest.to || "Tamu Undangan",
+              msg: "❤️ Kirim Doa Cinta",
+              status: "Love",
+              count: 1
+            }]).then(({ error }) => {
+              if (error) console.error("Gagal simpan love ke Supabase:", error);
+            });
+          } catch (e) {
+            console.error("Love insert exception:", e);
+          }
+        }
+
         const container = document.getElementById("love-reaction-box");
         if (container) {
           const heart = document.createElement("div");
@@ -1934,21 +2295,53 @@ class Component extends DCLogic {
       guestName: this.guest.to || "Tamu Undangan",
       guestInfo: this.guest.hasG ? ("Jumlah tamu: " + this.guest.gc + " orang") : "",
       openInvite: () => {
-        this.setState({ opened: true, playing: true });
+        // Play audio and request fullscreen immediately on user gesture
         this.playAudio();
-        this.playYouTube();
         this.requestFullscreen();
-        setTimeout(() => {
-          if (this._motionTrigger) this._motionTrigger();
-          if (this._revealObserver) {
-            document.querySelectorAll(".motion-up, .motion-left, .motion-right, .motion-zoom, .scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-zoom").forEach(el => {
-              this._revealObserver.observe(el);
-            });
-          }
-        }, 150);
-        setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 500);
-        setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 1000);
-        try { window.scrollTo(0, 0); } catch (e) {}
+
+        const overlay = document.getElementById("envelope-overlay");
+        if (overlay) {
+          overlay.style.display = "flex";
+          void overlay.offsetWidth;
+          overlay.classList.add("env-active");
+
+          setTimeout(() => {
+            this.setState({ opened: true, playing: true });
+            this.playYouTube();
+            try { window.scrollTo(0, 0); } catch (e) {}
+
+            overlay.classList.add("env-fade-out");
+            setTimeout(() => {
+              overlay.classList.remove("env-active", "env-fade-out");
+              overlay.style.display = "none";
+            }, 700);
+
+            setTimeout(() => {
+              if (this._motionTrigger) this._motionTrigger();
+              if (this._revealObserver) {
+                document.querySelectorAll(".motion-up, .motion-left, .motion-right, .motion-zoom, .scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-zoom").forEach(el => {
+                  this._revealObserver.observe(el);
+                });
+              }
+            }, 150);
+            setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 500);
+            setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 1000);
+          }, 1850);
+        } else {
+          this.setState({ opened: true, playing: true });
+          this.playYouTube();
+          setTimeout(() => {
+            if (this._motionTrigger) this._motionTrigger();
+            if (this._revealObserver) {
+              document.querySelectorAll(".motion-up, .motion-left, .motion-right, .motion-zoom, .scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-zoom").forEach(el => {
+                this._revealObserver.observe(el);
+              });
+            }
+          }, 150);
+          setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 500);
+          setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 1000);
+          try { window.scrollTo(0, 0); } catch (e) {}
+        }
       },
       musicStyle: "display: flex; " + (st.playing ? "animation: spin 3s linear infinite;" : ""),
       musicSpinStyle: st.playing ? "animation: spin 3s linear infinite;" : "animation-play-state: paused;",
