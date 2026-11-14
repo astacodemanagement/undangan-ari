@@ -367,6 +367,15 @@ window.SUPABASE_CONFIG = {
   anonKey: "sb_publishable_SVqz9RIVlVp4aErbmU3jJQ_SmokCUZZ"
 };
 </script>
+<style>
+  /* Critical prevention of modal flash before React mounts */
+  #greeting-card-modal, .card-modal-backdrop {
+    display: none !important;
+  }
+  .card-modal-backdrop.active {
+    display: flex !important;
+  }
+</style>
 </head>
 <body>
 <audio id="wedding-audio" loop preload="none">
@@ -2566,7 +2575,7 @@ class Component extends DCLogic {
 }
 </script>
 <!-- ================= GREETING CARD MODAL ================= -->
-<div id="greeting-card-modal" class="card-modal-backdrop" onclick="if(event.target===this)window.closeGreetingCardModal()">
+<div id="greeting-card-modal" class="card-modal-backdrop" style="display: none;" onclick="if(event.target===this)window.closeGreetingCardModal()">
   <div class="card-modal-box">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px">
       <div style="font-size: 15px; font-weight: 700; color: #5a3547; display: flex; align-items: center; gap: 6px">
@@ -2599,13 +2608,25 @@ window.currentCardData = { name: "", msg: "" };
 window.openGreetingCardModal = function(name, msg) {
   window.currentCardData = { name: name || "Tamu Undangan", msg: msg || "Selamat atas pernikahannya!" };
   const modal = document.getElementById("greeting-card-modal");
-  if (modal) modal.classList.add("active");
+  if (modal) {
+    modal.style.setProperty("display", "flex", "important");
+    requestAnimationFrame(function() {
+      modal.classList.add("active");
+    });
+  }
   window.drawCard();
 };
 
 window.closeGreetingCardModal = function() {
   const modal = document.getElementById("greeting-card-modal");
-  if (modal) modal.classList.remove("active");
+  if (modal) {
+    modal.classList.remove("active");
+    setTimeout(function() {
+      if (!modal.classList.contains("active")) {
+        modal.style.setProperty("display", "none", "important");
+      }
+    }, 250);
+  }
 };
 
 window.drawCard = function() {
