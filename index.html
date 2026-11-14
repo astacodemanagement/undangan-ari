@@ -442,16 +442,13 @@ window.SUPABASE_CONFIG = {
               <stop offset="60%" stop-color="#faedf4" />
               <stop offset="100%" stop-color="#eddbe5" />
             </linearGradient>
-            <filter id="envPocketShadowRealistic" x="-15%" y="-15%" width="130%" height="130%">
-              <feDropShadow dx="0" dy="-4" stdDeviation="5" flood-color="rgba(90,43,67,0.2)" />
-            </filter>
           </defs>
           <!-- Left side flap -->
           <polygon points="0,0 155,108 0,190" fill="url(#envSideL)" />
           <!-- Right side flap -->
           <polygon points="310,0 155,108 310,190" fill="url(#envSideR)" />
           <!-- Bottom main fold covering center -->
-          <polygon points="0,190 155,96 310,190" fill="url(#envBottomFold)" stroke="rgba(201,166,107,0.4)" stroke-width="0.9" filter="url(#envPocketShadowRealistic)" />
+          <polygon points="0,190 155,96 310,190" fill="url(#envBottomFold)" stroke="rgba(201,166,107,0.4)" stroke-width="0.9" />
         </svg>
       </div>
 
@@ -554,7 +551,7 @@ button,a{touch-action:manipulation}
   .floating-music-box{bottom:calc(68px + env(safe-area-inset-bottom, 0px)) !important;right:10px !important}
 }
 
-/* ================= LUXURY ENVELOPE OPENING ANIMATION ================= */
+/* ================= LUXURY ENVELOPE OPENING ANIMATION (60FPS HARDWARE ACCELERATED) ================= */
 .envelope-overlay {
   position: fixed;
   inset: 0;
@@ -562,12 +559,11 @@ button,a{touch-action:manipulation}
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at 50% 40%, rgba(253,249,247,0.98), rgba(235,220,228,0.99));
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: radial-gradient(circle at 50% 40%, rgba(254, 250, 248, 0.98), rgba(238, 224, 232, 0.99));
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.45s ease, background 0.75s ease, backdrop-filter 0.75s ease, -webkit-backdrop-filter 0.75s ease;
+  will-change: opacity;
+  transition: opacity 0.35s ease;
 }
 .envelope-overlay.env-active {
   opacity: 1;
@@ -576,10 +572,10 @@ button,a{touch-action:manipulation}
 .envelope-overlay.env-fade-out {
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.4s ease;
 }
 
-/* Ambient floating gold particles */
+/* Ambient floating gold particles - lightweight translate3d */
 .env-particles {
   position: absolute;
   inset: 0;
@@ -592,10 +588,10 @@ button,a{touch-action:manipulation}
   border-radius: 50%;
   background: radial-gradient(circle, #ffd98a 20%, #c9a66b 70%, transparent 100%);
   opacity: 0;
-  box-shadow: 0 0 10px rgba(201, 166, 107, 0.8);
+  will-change: transform, opacity;
 }
 .env-active .env-particle {
-  animation: envParticleFloat 3s ease-in-out infinite alternate;
+  animation: envParticleFloat 2.5s ease-in-out infinite alternate;
 }
 .env-particle.p1 { width: 6px; height: 6px; top: 22%; left: 15%; animation-delay: 0.1s; }
 .env-particle.p2 { width: 8px; height: 8px; top: 30%; right: 18%; animation-delay: 0.4s; }
@@ -606,9 +602,9 @@ button,a{touch-action:manipulation}
 .env-particle.p7 { width: 8px; height: 8px; top: 25%; left: 45%; animation-delay: 0.3s; }
 .env-particle.p8 { width: 5px; height: 5px; top: 58%; right: 35%; animation-delay: 0.6s; }
 @keyframes envParticleFloat {
-  0% { transform: translateY(0) scale(0.8); opacity: 0.3; }
+  0% { transform: translate3d(0, 0, 0) scale(0.8); opacity: 0.3; }
   50% { opacity: 0.9; }
-  100% { transform: translateY(-30px) scale(1.2); opacity: 0.2; }
+  100% { transform: translate3d(0, -20px, 0) scale(1.15); opacity: 0.2; }
 }
 
 .env-stage {
@@ -617,13 +613,14 @@ button,a{touch-action:manipulation}
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transform: scale(0.85) translateY(24px);
+  transform: translate3d(0, 20px, 0) scale(0.9);
   opacity: 0;
   z-index: 2;
-  transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.4s ease;
+  will-change: transform, opacity;
+  transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.35s ease;
 }
 .env-active .env-stage {
-  transform: scale(1) translateY(0);
+  transform: translate3d(0, 0, 0) scale(1);
   opacity: 1;
 }
 
@@ -631,7 +628,7 @@ button,a{touch-action:manipulation}
   position: relative;
   width: 310px;
   height: 190px;
-  perspective: 1400px;
+  perspective: 1200px;
 }
 
 /* Back of envelope with soft damask texture */
@@ -641,10 +638,11 @@ button,a{touch-action:manipulation}
   background: linear-gradient(135deg, #f5e8f0 0%, #ecdbe5 50%, #dfc8d6 100%);
   border-radius: 14px;
   z-index: 1;
-  box-shadow: 0 28px 56px -12px rgba(90,43,67,0.42), 0 6px 16px rgba(90,43,67,0.18);
+  box-shadow: 0 16px 36px -8px rgba(90,43,67,0.35);
   border: 1px solid rgba(255,255,255,0.7);
   overflow: hidden;
-  transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.55s ease;
+  will-change: transform, opacity;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
 }
 
 /* Invitation letter card */
@@ -658,40 +656,38 @@ button,a{touch-action:manipulation}
   border-radius: 8px;
   z-index: 2;
   border: 1.5px solid #d4af72;
-  box-shadow: inset 0 0 0 3px #ffffff, inset 0 0 0 4.5px rgba(201,166,107,0.55), 0 8px 24px rgba(90,43,67,0.18);
+  box-shadow: inset 0 0 0 3px #ffffff, inset 0 0 0 4px rgba(201,166,107,0.5), 0 6px 18px rgba(90,43,67,0.16);
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translateY(0);
-  transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.65s, box-shadow 0.75s ease 0.65s, opacity 0.6s ease, filter 0.6s ease;
+  transform: translate3d(0, 0, 0);
+  will-change: transform, opacity;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.4s, box-shadow 0.55s ease 0.4s;
 }
 .env-active .env-letter-card {
-  transform: translateY(-145px) scale(1.05);
-  box-shadow: 0 24px 45px -8px rgba(90,43,67,0.36);
+  transform: translate3d(0, -135px, 0) scale(1.04);
+  box-shadow: 0 18px 36px -6px rgba(90,43,67,0.3);
 }
 
 /* EXPANDING PHASE: letter card zooms continuously into screen and envelope drops away */
 .envelope-overlay.env-expanding {
   background: rgba(251, 247, 244, 0) !important;
-  backdrop-filter: blur(0px) !important;
-  -webkit-backdrop-filter: blur(0px) !important;
 }
 .envelope-overlay.env-expanding .env-back,
 .envelope-overlay.env-expanding .env-front-pocket,
 .envelope-overlay.env-expanding .env-top-flap,
 .envelope-overlay.env-expanding .env-caption,
 .envelope-overlay.env-expanding .env-particles {
-  transform: translateY(220px) scale(0.85);
+  transform: translate3d(0, 90px, 0) scale(0.92);
   opacity: 0;
   pointer-events: none;
-  transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.55s ease;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
 }
 .envelope-overlay.env-expanding .env-letter-card {
-  transform: translateY(-25px) scale(3.8);
+  transform: translate3d(0, -20px, 0) scale(2.2);
   opacity: 0;
-  filter: blur(3px);
-  box-shadow: 0 45px 90px rgba(90,43,67,0.45);
-  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.65s ease 0.1s, filter 0.65s ease 0.1s;
+  box-shadow: 0 25px 50px rgba(90,43,67,0.25);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease 0.05s;
 }
 
 .env-letter-inner {
@@ -761,7 +757,8 @@ button,a{touch-action:manipulation}
   pointer-events: none;
   border-radius: 14px;
   overflow: hidden;
-  transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.55s ease;
+  will-change: transform, opacity;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
 }
 
 /* Top flap folds open */
@@ -774,7 +771,8 @@ button,a{touch-action:manipulation}
   transform-origin: top center;
   z-index: 4;
   transform: rotateX(0deg);
-  transition: transform 0.65s cubic-bezier(0.3, 0, 0.7, 0) 0.25s, z-index 0.01s 0.6s, transform 0.75s cubic-bezier(0.4, 0, 0.2, 1) 1.2s, opacity 0.55s ease;
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.3, 0, 0.7, 0) 0.15s, z-index 0.01s 0.4s;
 }
 .env-active .env-top-flap {
   transform: rotateX(180deg);
@@ -786,12 +784,13 @@ button,a{touch-action:manipulation}
   position: absolute;
   top: 112px;
   left: 50%;
-  transform: translate(-50%, -50%) scale(1);
+  transform: translate3d(-50%, -50%, 0) scale(1);
   z-index: 5;
-  transition: transform 0.35s cubic-bezier(0.3, 0, 0.7, 0) 0.1s, opacity 0.3s ease 0.15s;
+  will-change: transform, opacity;
+  transition: transform 0.3s cubic-bezier(0.3, 0, 0.7, 0) 0.05s, opacity 0.25s ease 0.1s;
 }
 .env-active .env-wax-seal {
-  transform: translate(-50%, -50%) scale(0) rotate(35deg);
+  transform: translate3d(-50%, -50%, 0) scale(0) rotate(30deg);
   opacity: 0;
 }
 .env-wax-outer-ring {
@@ -821,11 +820,12 @@ button,a{touch-action:manipulation}
   text-transform: uppercase;
   color: #5a3547;
   opacity: 0;
-  transform: translateY(8px);
+  transform: translate3d(0, 8px, 0);
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: transform 0.5s ease 0.25s, opacity 0.5s ease 0.25s;
+  will-change: transform, opacity;
+  transition: transform 0.4s ease 0.2s, opacity 0.4s ease 0.2s;
 }
 .env-caption-orn {
   color: #c9a66b;
@@ -833,28 +833,23 @@ button,a{touch-action:manipulation}
 }
 .env-active .env-caption {
   opacity: 0.9;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
 }
 
-/* ================= HOME FIRST PAGE ENTRANCE EXPANSION ================= */
+/* ================= HOME FIRST PAGE ENTRANCE EXPANSION (HARDWARE ACCELERATED) ================= */
 .home-entrance-wrapper {
-  animation: homeUnfoldZoom 1.05s cubic-bezier(0.16, 1, 0.3, 1) both;
-  transform-origin: 50% 25%;
+  animation: homeSmoothEntrance 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: 50% 20%;
+  will-change: transform, opacity;
 }
-@keyframes homeUnfoldZoom {
+@keyframes homeSmoothEntrance {
   0% {
     opacity: 0;
-    transform: scale(0.72) translateY(50px);
-    filter: blur(6px);
-  }
-  60% {
-    opacity: 1;
-    filter: blur(0px);
+    transform: translate3d(0, 32px, 0) scale(0.95);
   }
   100% {
     opacity: 1;
-    transform: scale(1) translateY(0);
-    filter: blur(0px);
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
@@ -2512,9 +2507,8 @@ class Component extends DCLogic {
       guestName: this.guest.to || "Tamu Undangan",
       guestInfo: this.guest.hasG ? ("Jumlah tamu: " + this.guest.gc + " orang") : "",
       openInvite: () => {
-        // Play audio and request fullscreen immediately on user gesture
+        // Play audio immediately on user click gesture
         this.playAudio();
-        this.requestFullscreen();
 
         const overlay = document.getElementById("envelope-overlay");
         if (overlay) {
@@ -2522,22 +2516,23 @@ class Component extends DCLogic {
           void overlay.offsetWidth;
           overlay.classList.add("env-active");
 
-          // Fase 1: Surat keluar dan mulai ekspansi zoom membesar ke arah layar
+          // Fase 1: Surat keluar anggun & mulai ekspansi zoom halus 60fps (t = 820ms)
           setTimeout(() => {
             overlay.classList.add("env-expanding");
-          }, 1200);
+          }, 820);
 
-          // Fase 2: Halaman utama (#home) muncul membesar mulus menggantikan surat
+          // Fase 2: Halaman utama (#home) mekar lembut menggantikan surat tanpa lag (t = 1120ms)
           setTimeout(() => {
             this.setState({ opened: true, playing: true });
-            this.playYouTube();
             try { window.scrollTo(0, 0); } catch (e) {}
 
             overlay.classList.add("env-fade-out");
             setTimeout(() => {
               overlay.classList.remove("env-active", "env-expanding", "env-fade-out");
               overlay.style.display = "none";
-            }, 600);
+              // Start background media after animation finishes to avoid frame drop
+              this.playYouTube();
+            }, 380);
 
             setTimeout(() => {
               if (this._motionTrigger) this._motionTrigger();
@@ -2546,23 +2541,12 @@ class Component extends DCLogic {
                   this._revealObserver.observe(el);
                 });
               }
-            }, 150);
-            setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 500);
-            setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 1000);
-          }, 1450);
+            }, 60);
+            setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 300);
+          }, 1120);
         } else {
           this.setState({ opened: true, playing: true });
           this.playYouTube();
-          setTimeout(() => {
-            if (this._motionTrigger) this._motionTrigger();
-            if (this._revealObserver) {
-              document.querySelectorAll(".motion-up, .motion-left, .motion-right, .motion-zoom, .scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-zoom").forEach(el => {
-                this._revealObserver.observe(el);
-              });
-            }
-          }, 150);
-          setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 500);
-          setTimeout(() => { if (this._motionTrigger) this._motionTrigger(); }, 1000);
           try { window.scrollTo(0, 0); } catch (e) {}
         }
       },
