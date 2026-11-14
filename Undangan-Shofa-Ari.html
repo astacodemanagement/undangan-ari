@@ -2179,6 +2179,7 @@ class Component extends DCLogic {
       const { data, error } = await this.supabase
         .from("wishes")
         .select("*")
+        .neq("status", "Love")
         .order("created_at", { ascending: false })
         .limit(100);
       if (!error && Array.isArray(data)) {
