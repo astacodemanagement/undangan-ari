@@ -435,6 +435,213 @@ button,a{touch-action:manipulation}
   .floating-love-box{bottom:calc(68px + env(safe-area-inset-bottom, 0px)) !important;left:10px !important}
   .floating-music-box{bottom:calc(68px + env(safe-area-inset-bottom, 0px)) !important;right:10px !important}
 }
+
+/* ================= LIVING SCROLL TRANSITIONS ================= */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+.scroll-reveal-left {
+  opacity: 0;
+  transform: translateX(-24px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.scroll-reveal-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+.scroll-reveal-right {
+  opacity: 0;
+  transform: translateX(24px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.scroll-reveal-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+.scroll-reveal-zoom {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.scroll-reveal-zoom.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Connecting Section Dividers */
+.section-connector {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px 16px;
+  box-sizing: border-box;
+}
+.section-connector-line {
+  height: 1.5px;
+  flex: 1;
+  background: linear-gradient(90deg, transparent, rgba(201, 166, 107, 0.45), transparent);
+}
+.section-connector-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #c9a66b;
+  margin: 0 12px;
+  box-shadow: 0 0 10px rgba(201, 166, 107, 0.75);
+  animation: pulse 2.6s ease-in-out infinite;
+}
+
+/* ================= PROGRESSIVE TIMELINE (A JOURNEY WRITTEN BY ALLAH) ================= */
+.timeline-wrapper {
+  position: relative;
+  margin-top: 32px;
+  padding: 8px 0 16px;
+}
+.timeline-track {
+  position: absolute;
+  left: 20px;
+  top: 14px;
+  bottom: 24px;
+  width: 3px;
+  background: rgba(127, 156, 140, 0.22);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.timeline-progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: linear-gradient(180deg, #c9a66b 0%, #7f9c8c 50%, #5e7a6b 100%);
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(94, 122, 107, 0.6);
+  transition: height 0.15s ease-out;
+}
+.timeline-step {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+  opacity: 0.65;
+  transform: translateY(12px);
+  transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.timeline-step:last-child {
+  margin-bottom: 0;
+}
+.timeline-step.step-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.timeline-node {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #d1ded6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+}
+.timeline-node-num {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: #7f9c8c;
+  transition: all 0.4s ease;
+}
+.timeline-step.step-active .timeline-node {
+  border-color: #5e7a6b;
+  background: linear-gradient(135deg, #7f9c8c, #5e7a6b);
+  box-shadow: 0 0 0 4px rgba(127, 156, 140, 0.28), 0 8px 18px -4px rgba(94, 122, 107, 0.5);
+  transform: scale(1.08);
+}
+.timeline-step.step-active .timeline-node-num {
+  color: #ffffff;
+}
+.timeline-card {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 16px 18px;
+  box-shadow: 0 14px 28px -18px rgba(94, 122, 107, 0.4);
+  text-align: left;
+  position: relative;
+  transition: all 0.4s ease;
+}
+.timeline-card::before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  top: 15px;
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.72);
+  border-left: 1px solid rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.95);
+  transform: rotate(45deg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: all 0.4s ease;
+}
+.timeline-step.step-active .timeline-card {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(127, 156, 140, 0.45);
+  box-shadow: 0 18px 36px -16px rgba(94, 122, 107, 0.55);
+}
+.timeline-step.step-active .timeline-card::before {
+  background: rgba(255, 255, 255, 0.94);
+  border-left-color: rgba(127, 156, 140, 0.45);
+  border-bottom-color: rgba(127, 156, 140, 0.45);
+}
+.timeline-card-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #c9a66b;
+  margin-bottom: 4px;
+}
+.timeline-card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #5e7a6b;
+  margin: 0 0 6px;
+}
+.timeline-card-text {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #55635b;
+  margin: 0;
+}
+
 input:focus,textarea:focus{border-color:#7f9c8c !important;box-shadow:0 0 0 4px rgba(127,156,140,0.18)}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -523,7 +730,7 @@ input:focus,textarea:focus{border-color:#7f9c8c !important;box-shadow:0 0 0 4px 
 <div style="position: absolute; top: 5100px; left: -130px; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle, rgba(176,128,88,0.26) 0, rgba(176,128,88,0) 70%); animation: blob 34s ease-in-out 6s infinite alternate"></div>
 </div>
 <!-- ================= HERO ================= -->
-<div id="home" style="position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 64px 24px 56px">
+<div id="home" class="scroll-reveal" style="position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 64px 24px 56px">
 <div style="position: absolute; top: 40px; left: 10%; width: 10px; height: 13px; border-radius: 70% 0 70% 0; background: linear-gradient(135deg,#fbe5e2,#f0c0bd); z-index: 2; opacity: 0; animation: petal 15s linear 0s infinite" aria-hidden="true"></div>
 <div style="position: absolute; top: 40px; left: 24%; width: 8px; height: 11px; border-radius: 70% 0 70% 0; background: linear-gradient(135deg,#ffffff,#f4e6df); z-index: 2; opacity: 0; animation: petal 19s linear 5s infinite" aria-hidden="true"></div>
 <div style="position: absolute; top: 40px; left: 38%; width: 11px; height: 14px; border-radius: 70% 0 70% 0; background: linear-gradient(135deg,#fbe5e2,#f0c0bd); z-index: 2; opacity: 0; animation: petal 17s linear 9s infinite" aria-hidden="true"></div>
@@ -579,8 +786,14 @@ input:focus,textarea:focus{border-color:#7f9c8c !important;box-shadow:0 0 0 4px 
 <div style="margin-top: 16px; display: inline-block; padding: 5px 16px; border-radius: 16px; background: #e9f0ea; font-size: 13px; font-weight: 700; color: #5e7a6b; box-shadow: 0 6px 14px -6px rgba(94,122,107,0.4); animation: pulse 3s ease-in-out infinite;">Q.S Ar-Rum : 21</div>
 </div>
 
+
+<div class="section-connector" aria-hidden="true">
+  <div class="section-connector-line"></div>
+  <div class="section-connector-dot"></div>
+  <div class="section-connector-line"></div>
+</div>
 <!-- ================= MEMPELAI ================= -->
-<div id="mempelai" style="padding: 64px 16px 0; text-align: center; position: relative; overflow: hidden;">
+<div id="mempelai" class="scroll-reveal" style="padding: 64px 16px 0; text-align: center; position: relative; overflow: hidden;">
 <!-- Falling Leaves & Petals Motion Graphics (Minimalist & Subtle) -->
 <div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; z-index: 6; overflow: hidden;">
   <div style="position: absolute; top: 0; left: 14%; width: 12px; height: 18px; border-radius: 80% 0 80% 0; background: linear-gradient(135deg, #a4c4b2 0%, #688a78 100%); opacity: 0; filter: drop-shadow(0 3px 5px rgba(94,122,107,0.25)); animation: leafFall1 14s linear 0s infinite;"></div>
@@ -609,8 +822,14 @@ input:focus,textarea:focus{border-color:#7f9c8c !important;box-shadow:0 0 0 4px 
 </div>
 </div>
 
+
+<div class="section-connector" aria-hidden="true">
+  <div class="section-connector-line"></div>
+  <div class="section-connector-dot"></div>
+  <div class="section-connector-line"></div>
+</div>
 <!-- ================= ACARA ================= -->
-<div id="acara" style="padding: 72px 16px 0; text-align: center">
+<div id="acara" class="scroll-reveal" style="padding: 72px 16px 0; text-align: center">
 <div style="font-size: 12px; letter-spacing: 4px; color: #8aa093">SAVE THE DATE</div>
 <div style="margin-top: 4px; font-family: 'Great Vibes', cursive; font-size: 46px; line-height: 1.1; color: #5e7a6b">Waktu &amp; Tempat</div>
 <svg width="120" height="12" style="display: block; margin: 6px auto 0" aria-hidden="true"><use href="#s-orn"></use></svg>
@@ -647,41 +866,55 @@ input:focus,textarea:focus{border-color:#7f9c8c !important;box-shadow:0 0 0 4px 
 <div style="margin-top: 12px; font-size: 13px; color: #8a7a74">(HR. Abu Dawud No. 2130)</div>
 </div>
 
+
+<div class="section-connector" aria-hidden="true">
+  <div class="section-connector-line"></div>
+  <div class="section-connector-dot"></div>
+  <div class="section-connector-line"></div>
+</div>
 <!-- ================= LOVE STORY ================= -->
-<div id="story" style="padding: 72px 16px 0">
+<div id="story" class="scroll-reveal" style="padding: 72px 16px 0">
 <div style="text-align: center">
 <div style="font-size: 12px; letter-spacing: 4px; color: #8aa093">PERJALANAN KAMI</div>
-<div style="margin-top: 4px; font-family: 'Great Vibes', cursive; font-size: 38px; line-height: 1.2; color: #5e7a6b">A Journey Written by Allah</div>
+<div style="margin-top: 4px; font-family: 'Great Vibes', cursive; font-size: 40px; line-height: 1.2; color: #5e7a6b">A Journey Written by Allah</div>
 <svg width="120" height="12" style="display: block; margin: 6px auto 0" aria-hidden="true"><use href="#s-orn"></use></svg>
 </div>
-<div style="position: relative; margin-top: 28px; padding-left: 34px; display: flex; flex-direction: column; gap: 14px">
-<div style="position: absolute; left: 11px; top: 14px; bottom: 14px; width: 2px; background: linear-gradient(180deg,#c9d8cd,#efc9c0)"></div>
-<sc-for list="{{stories}}" as="st" hint-placeholder-count="4">
-<div style="position: relative">
-<div style="position: absolute; left: -34px; top: 18px; width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 2px solid #7f9c8c; box-sizing: border-box; display: flex; align-items: center; justify-content: center"><div style="width: 8px; height: 8px; border-radius: 50%; background: #7f9c8c; animation: pulse 2.2s ease-in-out infinite;"></div></div>
-<button onClick="{{st.toggle}}" aria-expanded="{{st.open}}" style="width: 100%; text-align: left; padding: 16px 18px; border: 1px solid rgba(255,255,255,0.9); border-radius: 22px; background: rgba(255,255,255,0.7); box-shadow: 0 16px 30px -22px rgba(94,122,107,0.6); color: inherit">
-<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
-<div style="font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; line-height: 1.2; color: #5e7a6b">{{st.title}}</div>
-<svg width="22" height="22" style="{{st.chev}}" aria-hidden="true"><use href="#s-chev"></use></svg>
+
+<!-- Dynamic Scroll Timeline -->
+<div id="timeline-container" class="timeline-wrapper">
+<div class="timeline-track">
+  <div id="timeline-progress-bar" class="timeline-progress-bar"></div>
 </div>
-<sc-if value="{{st.open}}" hint-placeholder-val="{{false}}">
-<div style="margin-top: 10px; font-size: 14.5px; line-height: 1.65; color: #55635b">{{st.text}}</div>
-</sc-if>
-</button>
+<sc-for list="{{stories}}" as="st" hint-placeholder-count="4">
+<div class="timeline-step">
+  <div class="timeline-node">
+    <span class="timeline-node-num">{{st.step}}</span>
+  </div>
+  <div class="timeline-card">
+    <div class="timeline-card-tag">{{st.tag}}</div>
+    <h4 class="timeline-card-title">{{st.title}}</h4>
+    <p class="timeline-card-text">{{st.text}}</p>
+  </div>
 </div>
 </sc-for>
 </div>
 
 <!-- Closing Quote -->
-<div style="margin-top: 24px; padding: 18px 22px; border-radius: 20px; background: rgba(255,255,255,0.75); border: 1px solid rgba(127,156,140,0.3); text-align: center; box-shadow: 0 12px 24px -16px rgba(94,122,107,0.25)">
-<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 16px; line-height: 1.6; color: #5e7a6b; font-weight: 600">
+<div class="scroll-reveal-zoom" style="margin-top: 24px; padding: 20px 22px; border-radius: 20px; background: rgba(255,255,255,0.85); border: 1.5px solid rgba(127,156,140,0.35); text-align: center; box-shadow: 0 14px 28px -16px rgba(94,122,107,0.3)">
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 17px; line-height: 1.6; color: #5e7a6b; font-weight: 600">
 &ldquo;Sometimes, the most beautiful stories begin with two strangers and a sincere intention.&rdquo;
 </div>
 </div>
 </div>
 
+
+<div class="section-connector" aria-hidden="true">
+  <div class="section-connector-line"></div>
+  <div class="section-connector-dot"></div>
+  <div class="section-connector-line"></div>
+</div>
 <!-- ================= NASEHAT ================= -->
-<div style="padding: 72px 16px 0; text-align: center">
+<div class="scroll-reveal" style="padding: 72px 16px 0; text-align: center">
 <div style="font-size: 12px; letter-spacing: 4px; color: #8aa093">TONTONAN PILIHAN</div>
 <div style="margin-top: 4px; font-family: 'Great Vibes', cursive; font-size: 42px; line-height: 1.1; color: #5e7a6b">Nasehat Pernikahan</div>
 <div style="position: relative; margin-top: 22px; width: 100%; border-radius: 24px; overflow: hidden; box-shadow: 0 24px 44px -20px rgba(94,122,107,0.7); border: 4px solid #fff; background: #000; aspect-ratio: 16 / 9; animation: borderGlow 6s ease-in-out infinite;">
@@ -702,8 +935,14 @@ input:focus,textarea:focus{border-color:#7f9c8c !important;box-shadow:0 0 0 4px 
 </a>
 </div>
 
+
+<div class="section-connector" aria-hidden="true">
+  <div class="section-connector-line"></div>
+  <div class="section-connector-dot"></div>
+  <div class="section-connector-line"></div>
+</div>
 <!-- ================= GIFT ================= -->
-<div id="gift" style="padding: 72px 16px 0; text-align: center">
+<div id="gift" class="scroll-reveal" style="padding: 72px 16px 0; text-align: center">
 <div style="font-size: 12px; letter-spacing: 4px; color: #8aa093">TANDA KASIH</div>
 <div style="margin-top: 4px; font-family: 'Great Vibes', cursive; font-size: 46px; line-height: 1.1; color: #5e7a6b">Wedding Gift</div>
 <div style="margin: 10px auto 0; max-width: 340px; font-size: 14.5px; color: #6b7a72">Do'a Restu dan kehadiran Anda merupakan karunia yang sangat berarti bagi kami. Dan jika memberi adalah ungkapan tanda kasih, Anda dapat memberi hadiah melalui rekening di bawah ini.</div>
@@ -738,8 +977,14 @@ Konfirmasi Hadiah via WhatsApp
 </div>
 </div>
 
+
+<div class="section-connector" aria-hidden="true">
+  <div class="section-connector-line"></div>
+  <div class="section-connector-dot"></div>
+  <div class="section-connector-line"></div>
+</div>
 <!-- ================= RSVP ================= -->
-<div id="rsvp" style="padding: 72px 16px 0">
+<div id="rsvp" class="scroll-reveal" style="padding: 72px 16px 0">
 <div style="text-align: center">
 <div style="font-size: 12px; letter-spacing: 4px; color: #8aa093">KONFIRMASI</div>
 <div style="margin-top: 4px; font-family: 'Great Vibes', cursive; font-size: 46px; line-height: 1.1; color: #5e7a6b">Ucapan &amp; RSVP</div>
@@ -981,9 +1226,53 @@ class Component extends DCLogic {
             break;
           }
         }
+
+        // Timeline progressive line update
+        const container = document.getElementById("timeline-container");
+        const bar = document.getElementById("timeline-progress-bar");
+        if (container && bar) {
+          const rect = container.getBoundingClientRect();
+          const triggerOffset = window.innerHeight * 0.6;
+          const startY = rect.top - triggerOffset;
+          const totalHeight = rect.height;
+          if (startY > 0) {
+            bar.style.height = "0%";
+          } else if (-startY >= totalHeight) {
+            bar.style.height = "100%";
+          } else {
+            const pct = Math.min(100, Math.max(0, (-startY / totalHeight) * 100));
+            bar.style.height = pct.toFixed(1) + "%";
+          }
+          const steps = container.querySelectorAll(".timeline-step");
+          steps.forEach((step) => {
+            const stepRect = step.getBoundingClientRect();
+            if (stepRect.top <= triggerOffset + 50) {
+              step.classList.add("step-active");
+            } else {
+              step.classList.remove("step-active");
+            }
+          });
+        }
       };
       window.addEventListener("scroll", updateOnScroll, { passive: true });
       this._scrollSpy = updateOnScroll;
+
+      // Scroll Reveal IntersectionObserver
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+          }
+        });
+      }, { rootMargin: "0px 0px -40px 0px", threshold: 0.1 });
+      const bindReveals = () => {
+        document.querySelectorAll(".scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-zoom").forEach(el => {
+          revealObserver.observe(el);
+        });
+      };
+      setTimeout(bindReveals, 300);
+      setTimeout(bindReveals, 1200);
+      this._revealObserver = revealObserver;
     } catch (e) {}
   }
 
@@ -1263,32 +1552,31 @@ class Component extends DCLogic {
     };
     const storyData = [
       {
-        title: "01. Two Strangers, One Intention",
+        step: "01",
+        tag: "Awal Niat",
+        title: "Two Strangers, One Intention",
         text: "Berawal dari dua orang asing yang dipertemukan melalui sebuah perantara. Saling bertukar CV menjadi langkah pertama untuk mengenal, dengan satu niat yang sama: mencari teman hidup dalam ketaatan."
       },
       {
-        title: "02. A Step Towards Commitment",
+        step: "02",
+        tag: "Keseriusan",
+        title: "A Step Towards Commitment",
         text: "Hanya sepekan setelah bertukar CV, niat baik itu berlanjut melalui kunjungan ke rumah. Sebuah langkah sederhana yang menjadi awal keseriusan, dengan melibatkan keluarga dan mengharap rida Allah."
       },
       {
-        title: "03. The First Meeting",
+        step: "03",
+        tag: "10 Oktober 2026",
+        title: "The First Meeting",
         text: "10 Oktober 2026 menjadi pertemuan pertama kami. Dua orang yang sebelumnya asing, kini mulai melangkah menuju satu tujuan yang sama."
       },
       {
-        title: "04. The Beginning of Forever",
+        step: "04",
+        tag: "26 Desember 2026",
+        title: "The Beginning of Forever",
         text: "26 Desember 2026, insyaAllah menjadi awal perjalanan kami sebagai teman hidup. Bukan sekadar tentang menyatukan dua hati, tetapi tentang belajar bersama, saling menguatkan dalam kebaikan, dan berjalan menuju ridha-Nya."
       }
     ];
-    const stories = storyData.map((x, i) => {
-      const open = st.openStory === i;
-      return {
-        title: x.title,
-        text: x.text,
-        open: open,
-        chev: "flex: none; color: #7f9c8c; transition: transform 0.25s; transform: rotate(" + (open ? 180 : 0) + "deg)",
-        toggle: () => this.setState({ openStory: open ? -1 : i })
-      };
-    });
+    const stories = storyData;
     const bankBtn = (on) => "display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 16px; border: 0; border-radius: 19px; font-size: 14px; font-weight: 700; " + (on ? "background: #e3efe6; color: #4d6a5c;" : "background: linear-gradient(135deg,#7f9c8c,#5e7a6b); color: #fff; box-shadow: 0 10px 18px -10px rgba(94,122,107,0.9);");
     const bankDefs = [
       { key: "bsi", logo: "BSI · Bank Syariah Indonesia", logoStyle: "font-size: 14px; font-weight: 700; letter-spacing: 0.5px; color: #3b9a94; padding: 6px 12px; border-radius: 12px; background: #fff", no: "6967489410", owner: "Shofa Alifah" },
@@ -1462,6 +1750,13 @@ class Component extends DCLogic {
         this.setState({ opened: true, playing: true });
         this.playAudio();
         this.playYouTube();
+        setTimeout(() => {
+          if (this._revealObserver) {
+            document.querySelectorAll(".scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-zoom").forEach(el => {
+              this._revealObserver.observe(el);
+            });
+          }
+        }, 300);
         try { window.scrollTo(0, 0); } catch (e) {}
       },
       musicStyle: "display: flex; " + (st.playing ? "animation: spin 3s linear infinite;" : ""),
