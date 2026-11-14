@@ -638,7 +638,7 @@ input:focus,textarea:focus{border-color:#7f9c8c !important;box-shadow:0 0 0 4px 
 <div style="margin-top: 4px; font-family: 'Great Vibes', cursive; font-size: 42px; line-height: 1.1; color: #5e7a6b">Nasehat Pernikahan</div>
 <div style="position: relative; margin-top: 22px; width: 100%; border-radius: 24px; overflow: hidden; box-shadow: 0 24px 44px -20px rgba(94,122,107,0.7); border: 4px solid #fff; background: #000; aspect-ratio: 16 / 9; animation: borderGlow 6s ease-in-out infinite;">
 <iframe id="yt-player"
-  src="https://www.youtube.com/embed/iGtmUJMhaIw?enablejsapi=1&rel=0" 
+  src="{{ytSrc}}" 
   title="Nasehat Pernikahan: 'Blind Spot' Pernikahan - Ustadz Muhammad Nuzul Dzikri" 
   style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -945,7 +945,20 @@ class Component extends DCLogic {
 
       if (!this._ytBound) {
         this._ytBound = true;
-// Simultaneous playback: audio and YouTube can play together
+        // Listen for YouTube ready message to trigger playback immediately
+        window.addEventListener("message", (event) => {
+          try {
+            let data = event.data;
+            if (typeof data === "string") {
+              try { data = JSON.parse(data); } catch (e) {}
+            }
+            if (data && (data.event === "onReady" || data.event === "initialDelivery")) {
+              if (this.state && this.state.opened && this.state.playing) {
+                this.playYouTube();
+              }
+            }
+          } catch (e) {}
+        });
       }
     } catch (e) {
       console.warn("Audio initialization warning:", e);
@@ -975,20 +988,34 @@ class Component extends DCLogic {
 
   playYouTube() {
     try {
-      const iframe = document.getElementById("yt-player") || document.querySelector('iframe[src*="youtube.com"]');
-      if (iframe) {
-        if (!iframe.src.includes("autoplay=1")) {
-          iframe.src = "https://www.youtube.com/embed/iGtmUJMhaIw?enablejsapi=1&autoplay=1&rel=0";
-        }
-        if (iframe.contentWindow) {
+      const sendCmd = () => {
+        const iframe = document.getElementById("yt-player") || document.querySelector('iframe[src*="youtube.com"]');
+        if (iframe && iframe.contentWindow) {
+          iframe.contentWindow.postMessage('{"event":"listening"}', '*');
+          iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
           iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
         }
-      }
+      };
+      sendCmd();
+      let retries = 0;
+      if (this._ytInterval) clearInterval(this._ytInterval);
+      this._ytInterval = setInterval(() => {
+        retries++;
+        sendCmd();
+        if (retries >= 10) {
+          clearInterval(this._ytInterval);
+          this._ytInterval = null;
+        }
+      }, 300);
     } catch (e) {}
   }
 
   pauseYouTube() {
     try {
+      if (this._ytInterval) {
+        clearInterval(this._ytInterval);
+        this._ytInterval = null;
+      }
       const iframe = document.getElementById("yt-player") || document.querySelector('iframe[src*="youtube.com"]');
       if (iframe && iframe.contentWindow) {
         iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
@@ -1319,6 +1346,7 @@ class Component extends DCLogic {
       },
       isCover: !st.opened,
       isOpen: st.opened,
+      ytSrc: st.opened ? "https://www.youtube.com/embed/iGtmUJMhaIw?enablejsapi=1&autoplay=1&playsinline=1&rel=0" : "https://www.youtube.com/embed/iGtmUJMhaIw?enablejsapi=1&playsinline=1&rel=0",
       guestName: this.guest.to || "Tamu Undangan",
       guestInfo: this.guest.hasG ? ("Jumlah tamu: " + this.guest.gc + " orang") : "",
       openInvite: () => {
