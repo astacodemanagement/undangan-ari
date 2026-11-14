@@ -1,2 +1,4 @@
 .DS_Store
 *.bak
+*_original.mp3
+screenshot-*.png

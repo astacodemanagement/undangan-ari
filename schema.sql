@@ -36,7 +36,14 @@ create policy "Public can insert wishes"
   for insert
   with check (true);
 
--- 5. Aktifkan Realtime Broadcast agar ucapan baru langsung muncul seketika di layar semua tamu
+-- 5. Izinkan penghapusan komentar (untuk Panel Admin)
+drop policy if exists "Public can delete wishes" on public.wishes;
+create policy "Public can delete wishes"
+  on public.wishes
+  for delete
+  using (true);
+
+-- 6. Aktifkan Realtime Broadcast agar ucapan baru langsung muncul seketika di layar semua tamu
 do $$
 begin
   if not exists (
@@ -47,7 +54,7 @@ begin
   end if;
 end $$;
 
--- 6. (Opsional) Data ucapan awal sebagai contoh
+-- 7. (Opsional) Data ucapan awal sebagai contoh
 insert into public.wishes (name, msg, status, count)
 values 
   ('Rofi Munawar', 'Hormat dan selamat atas pernikahannya. Semoga sakinah, mawaddah, warahmah.', 'Hadir · 2 tamu', 2)

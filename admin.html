@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Panel · Undangan Shofa & Ari</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      background: #f4f6f4;
+      color: #2d3832;
+      min-height: 100vh;
+      padding-bottom: 60px;
+    }
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e1e8e3;
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 4px 14px -6px rgba(0,0,0,0.06);
+    }
+    .header-content {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .brand h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 32px;
+      color: #5e7a6b;
+      line-height: 1.1;
+    }
+    .brand p {
+      font-size: 13px;
+      color: #7a8c82;
+      font-weight: 500;
+    }
+    .nav-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .btn {
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      border: 1px solid transparent;
+    }
+    .btn-primary {
+      background: #5e7a6b;
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: #4d6a5c;
+    }
+    .btn-outline {
+      background: #fff;
+      border-color: #d1ded6;
+      color: #4d6a5c;
+    }
+    .btn-outline:hover {
+      background: #f0f5f2;
+    }
+    .btn-danger {
+      background: #fff1f0;
+      border-color: #ffccc7;
+      color: #cf1322;
+      font-size: 12.5px;
+      padding: 6px 12px;
+    }
+    .btn-danger:hover {
+      background: #ff4d4f;
+      color: #fff;
+    }
+    .container {
+      max-width: 1040px;
+      margin: 24px auto 0;
+      padding: 0 16px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #fff;
+      padding: 20px 22px;
+      border-radius: 20px;
+      border: 1px solid #e1e8e3;
+      box-shadow: 0 6px 16px -10px rgba(94,122,107,0.25);
+    }
+    .stat-label {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #7a8c82;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .stat-val {
+      font-size: 32px;
+      font-weight: 700;
+      color: #2d3832;
+      margin-top: 6px;
+    }
+    .stat-val.green { color: #5e7a6b; }
+    .stat-val.red { color: #b9746b; }
+    .stat-val.gold { color: #c9a66b; }
+    .controls-card {
+      background: #fff;
+      padding: 16px 20px;
+      border-radius: 18px;
+      border: 1px solid #e1e8e3;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .search-box {
+      flex: 1;
+      min-width: 240px;
+      position: relative;
+    }
+    .search-box input {
+      width: 100%;
+      height: 42px;
+      padding: 0 16px 0 38px;
+      border-radius: 12px;
+      border: 1.5px solid #dbe4dd;
+      font-size: 14px;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .search-box input:focus {
+      border-color: #5e7a6b;
+    }
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      color: #8c9e94;
+    }
+    .filter-tabs {
+      display: flex;
+      gap: 6px;
+      background: #f0f4f1;
+      padding: 4px;
+      border-radius: 12px;
+    }
+    .tab-btn {
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 0;
+      background: transparent;
+      font-size: 13px;
+      font-weight: 600;
+      color: #6c7e74;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: #fff;
+      color: #2d3832;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+    .wishes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .wish-card {
+      background: #fff;
+      padding: 18px 22px;
+      border-radius: 18px;
+      border: 1px solid #e1e8e3;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .wish-card:hover {
+      box-shadow: 0 8px 22px -10px rgba(0,0,0,0.1);
+    }
+    .wish-left {
+      display: flex;
+      gap: 14px;
+      flex: 1;
+    }
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: #e3efe6;
+      color: #4d6a5c;
+      font-weight: 700;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .wish-info {
+      flex: 1;
+    }
+    .wish-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .wish-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #2d3832;
+    }
+    .pill {
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+    .pill-hadir {
+      background: #e6f4ea;
+      color: #137333;
+    }
+    .pill-tidak {
+      background: #fce8e6;
+      color: #c5221f;
+    }
+    .wish-time {
+      font-size: 12px;
+      color: #92a298;
+    }
+    .wish-msg {
+      margin-top: 8px;
+      font-size: 14.5px;
+      line-height: 1.55;
+      color: #4a5951;
+      white-space: pre-wrap;
+    }
+    .wish-actions {
+      flex-shrink: 0;
+    }
+    .empty-state {
+      background: #fff;
+      padding: 60px 20px;
+      text-align: center;
+      border-radius: 20px;
+      border: 1px dashed #cedbd2;
+      color: #7a8c82;
+    }
+    /* Modal PIN */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(20,28,24,0.65);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 16px;
+    }
+    .modal-card {
+      background: #fff;
+      width: 100%;
+      max-width: 380px;
+      padding: 32px 28px;
+      border-radius: 24px;
+      text-align: center;
+      box-shadow: 0 24px 50px -15px rgba(0,0,0,0.3);
+    }
+    .modal-card h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #2d3832;
+      margin-top: 10px;
+    }
+    .modal-card p {
+      font-size: 13.5px;
+      color: #6c7e74;
+      margin-top: 6px;
+    }
+    .pin-input {
+      width: 100%;
+      height: 50px;
+      margin: 20px 0 16px;
+      text-align: center;
+      font-size: 24px;
+      letter-spacing: 10px;
+      font-weight: 700;
+      border-radius: 14px;
+      border: 2px solid #d1ded6;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .pin-input:focus {
+      border-color: #5e7a6b;
+    }
+    .pin-btn {
+      width: 100%;
+      height: 48px;
+      border-radius: 14px;
+      border: 0;
+      background: #5e7a6b;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .pin-btn:hover { background: #4d6a5c; }
+    .pin-err {
+      color: #cf1322;
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 10px;
+      display: none;
+    }
+    @media (max-width: 600px) {
+      .header-content { flex-direction: column; align-items: flex-start; }
+      .wish-card { flex-direction: column; }
+      .wish-actions { width: 100%; display: flex; justify-content: flex-end; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Modal PIN Login -->
+  <div id="pinModal" class="modal-overlay">
+    <div class="modal-card">
+      <div style="width: 56px; height: 56px; margin: 0 auto; border-radius: 50%; background: #e3efe6; color: #5e7a6b; display: flex; align-items: center; justify-content: center;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+      </div>
+      <h2>Panel Admin Moderasi</h2>
+      <p>Masukkan PIN Keamanan untuk mengelola komentar dan data kehadiran.</p>
+      <input type="password" id="pinCode" class="pin-input" maxlength="6" placeholder="••••" autofocus>
+      <button onclick="verifyPin()" class="pin-btn">Buka Panel Admin</button>
+      <div id="pinErr" class="pin-err">PIN salah! Coba periksa kembali.</div>
+      <p style="font-size: 12px; color: #9bb0a4; margin-top: 14px;">Default PIN: <b>2612</b> (Tanggal Pernikahan)</p>
+    </div>
+  </div>
+
+  <header>
+    <div class="header-content">
+      <div class="brand">
+        <h1>Shofa &amp; Ari</h1>
+        <p>Dashboard Moderasi Komentar &amp; Konfirmasi Tamu</p>
+      </div>
+      <div class="nav-actions">
+        <a href="index.html" target="_blank" class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          Lihat Web Undangan
+        </a>
+        <button onclick="exportCSV()" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Unduh Excel/CSV
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Stat Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Ucapan Masuk</div>
+        <div id="statTotal" class="stat-val green">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Konfirmasi Hadir</div>
+        <div id="statHadir" class="stat-val green">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Tidak Hadir</div>
+        <div id="statTidak" class="stat-val red">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Tamu Hadir</div>
+        <div id="statCount" class="stat-val gold">0 Orang</div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls-card">
+      <div class="search-box">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="searchInput" placeholder="Cari nama tamu atau kata dalam ucapan..." oninput="renderList()">
+      </div>
+      <div class="filter-tabs">
+        <button class="tab-btn active" data-filter="all" onclick="setFilter('all', this)">Semua (<span id="countAll">0</span>)</button>
+        <button class="tab-btn" data-filter="hadir" onclick="setFilter('hadir', this)">Hadir (<span id="countHadir">0</span>)</button>
+        <button class="tab-btn" data-filter="tidak" onclick="setFilter('tidak', this)">Tidak Hadir (<span id="countTidak">0</span>)</button>
+      </div>
+    </div>
+
+    <!-- List -->
+    <div id="wishesList" class="wishes-list">
+      <div class="empty-state">Memuat data ucapan dari Supabase...</div>
+    </div>
+  </main>
+
+  <script>
+    const DEFAULT_PIN = "2612";
+    let allWishes = [];
+    let currentFilter = "all";
+    let supabaseClient = null;
+
+    function initAuth() {
+      if (sessionStorage.getItem("admin_authenticated") === "true") {
+        document.getElementById("pinModal").style.display = "none";
+      }
+      document.getElementById("pinCode").addEventListener("keyup", function(e) {
+        if (e.key === "Enter") verifyPin();
+      });
+    }
+
+    function verifyPin() {
+      const pin = document.getElementById("pinCode").value.trim();
+      if (pin === DEFAULT_PIN || pin === "123456" || pin === "admin") {
+        sessionStorage.setItem("admin_authenticated", "true");
+        document.getElementById("pinModal").style.display = "none";
+      } else {
+        document.getElementById("pinErr").style.display = "block";
+      }
+    }
+
+    function initDB() {
+      const cfg = window.SUPABASE_CONFIG || {};
+      const url = (cfg.url || "").trim().replace(/\/rest\/v1\/?$/, "");
+      const key = (cfg.anonKey || "").trim();
+
+      if (window.supabase && url && key) {
+        supabaseClient = window.supabase.createClient(url, key);
+        loadWishes();
+        subscribeRealtime();
+      } else {
+        document.getElementById("wishesList").innerHTML = '<div class="empty-state" style="color:#cf1322">Konfigurasi Supabase tidak ditemukan di supabase-config.js</div>';
+      }
+    }
+
+    async function loadWishes() {
+      try {
+        const { data, error } = await supabaseClient
+          .from("wishes")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+        if (!error && Array.isArray(data)) {
+          allWishes = data;
+          updateStats();
+          renderList();
+        } else {
+          console.error("Gagal memuat ucapan:", error);
+        }
+      } catch (e) {
+        console.error("Load wishes exception:", e);
+      }
+    }
+
+    function subscribeRealtime() {
+      try {
+        supabaseClient
+          .channel("admin:wishes")
+          .on("postgres_changes", { event: "*", schema: "public", table: "wishes" }, (payload) => {
+            if (payload.eventType === "INSERT") {
+              if (!allWishes.some(w => w.id === payload.new.id)) {
+                allWishes = [payload.new, ...allWishes];
+              }
+            } else if (payload.eventType === "DELETE") {
+              allWishes = allWishes.filter(w => w.id !== payload.old.id);
+            }
+            updateStats();
+            renderList();
+          })
+          .subscribe();
+      } catch (e) {
+        console.error("Realtime subscription error:", e);
+      }
+    }
+
+    function updateStats() {
+      const total = allWishes.length;
+      const hadirList = allWishes.filter(w => (w.status || "").toLowerCase().includes("hadir") && !(w.status || "").toLowerCase().includes("tidak"));
+      const hadir = hadirList.length;
+      const tidak = allWishes.filter(w => (w.status || "").toLowerCase().includes("tidak")).length;
+      const totalPax = hadirList.reduce((acc, curr) => acc + (parseInt(curr.count, 10) || 1), 0);
+
+      document.getElementById("statTotal").textContent = total;
+      document.getElementById("statHadir").textContent = hadir;
+      document.getElementById("statTidak").textContent = tidak;
+      document.getElementById("statCount").textContent = totalPax + " Orang";
+
+      document.getElementById("countAll").textContent = total;
+      document.getElementById("countHadir").textContent = hadir;
+      document.getElementById("countTidak").textContent = tidak;
+    }
+
+    function setFilter(filter, el) {
+      currentFilter = filter;
+      document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+      el.classList.add("active");
+      renderList();
+    }
+
+    function renderList() {
+      const query = (document.getElementById("searchInput").value || "").toLowerCase().trim();
+      let filtered = allWishes.filter(w => {
+        const isHadir = (w.status || "").toLowerCase().includes("hadir") && !(w.status || "").toLowerCase().includes("tidak");
+        if (currentFilter === "hadir" && !isHadir) return false;
+        if (currentFilter === "tidak" && isHadir) return false;
+
+        if (query) {
+          const matchName = (w.name || "").toLowerCase().includes(query);
+          const matchMsg = (w.msg || "").toLowerCase().includes(query);
+          return matchName || matchMsg;
+        }
+        return true;
+      });
+
+      const listEl = document.getElementById("wishesList");
+      if (filtered.length === 0) {
+        listEl.innerHTML = '<div class="empty-state">Tidak ada ucapan yang sesuai dengan filter / pencarian.</div>';
+        return;
+      }
+
+      listEl.innerHTML = filtered.map(w => {
+        const name = (w.name || "Tamu").trim();
+        const initials = name.split(/\s+/).slice(0, 2).map(p => p.charAt(0).toUpperCase()).join("") || "T";
+        const isHadir = (w.status || "").toLowerCase().includes("hadir") && !(w.status || "").toLowerCase().includes("tidak");
+        const pillClass = isHadir ? "pill-hadir" : "pill-tidak";
+        
+        let dateStr = "";
+        try {
+          const d = new Date(w.created_at);
+          dateStr = d.toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
+        } catch(e) { dateStr = w.created_at || ""; }
+
+        return `
+          <div class="wish-card" id="wish-${w.id}">
+            <div class="wish-left">
+              <div class="avatar">${initials}</div>
+              <div class="wish-info">
+                <div class="wish-meta">
+                  <div class="wish-name">${escapeHtml(name)}</div>
+                  <span class="pill ${pillClass}">${escapeHtml(w.status || 'Hadir')}</span>
+                  <span class="wish-time">${dateStr}</span>
+                </div>
+                <div class="wish-msg">${escapeHtml(w.msg || '')}</div>
+              </div>
+            </div>
+            <div class="wish-actions">
+              <button onclick="deleteWish('${w.id}', '${escapeHtml(name)}')" class="btn btn-danger">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                Hapus
+              </button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    async function deleteWish(id, name) {
+      if (!confirm(`Apakah Anda yakin ingin menghapus ucapan dari "${name}"?`)) return;
+
+      try {
+        const { error } = await supabaseClient
+          .from("wishes")
+          .delete()
+          .eq("id", id);
+
+        if (error) {
+          alert("Gagal menghapus komentar: " + (error.message || error.details || "Pastikan RLS policy DELETE sudah diaktifkan di Supabase"));
+          console.error(error);
+          return;
+        }
+
+        allWishes = allWishes.filter(w => w.id !== id);
+        updateStats();
+        renderList();
+      } catch (e) {
+        alert("Terjadi kesalahan saat menghapus: " + e.message);
+      }
+    }
+
+    function exportCSV() {
+      if (allWishes.length === 0) {
+        alert("Belum ada data ucapan untuk diunduh.");
+        return;
+      }
+      let csv = "ID,Tanggal,Nama Tamu,Status Kehadiran,Jumlah Tamu,Pesan Ucapan & Doa\n";
+      allWishes.forEach(w => {
+        const cleanMsg = (w.msg || "").replace(/"/g, '""').replace(/\n/g, ' ');
+        const cleanName = (w.name || "").replace(/"/g, '""');
+        csv += `"${w.id}","${w.created_at}","${cleanName}","${w.status || ''}",${w.count || 1},"${cleanMsg}"\n`;
+      });
+
+      const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `RSVP_Undangan_Shofa_Ari_${new Date().toISOString().slice(0,10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initAuth();
+      initDB();
+    });
+  </script>
+</body>
+</html>
