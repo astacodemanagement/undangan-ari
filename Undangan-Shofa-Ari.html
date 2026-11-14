@@ -603,7 +603,7 @@ input:focus,textarea:focus{border-color:#7f9c8c !important;box-shadow:0 0 0 4px 
 <div id="story" style="padding: 72px 16px 0">
 <div style="text-align: center">
 <div style="font-size: 12px; letter-spacing: 4px; color: #8aa093">PERJALANAN KAMI</div>
-<div style="margin-top: 4px; font-family: 'Great Vibes', cursive; font-size: 46px; line-height: 1.1; color: #5e7a6b">Love Story</div>
+<div style="margin-top: 4px; font-family: 'Great Vibes', cursive; font-size: 38px; line-height: 1.2; color: #5e7a6b">A Journey Written by Allah</div>
 <svg width="120" height="12" style="display: block; margin: 6px auto 0" aria-hidden="true"><use href="#s-orn"></use></svg>
 </div>
 <div style="position: relative; margin-top: 28px; padding-left: 34px; display: flex; flex-direction: column; gap: 14px">
@@ -622,6 +622,13 @@ input:focus,textarea:focus{border-color:#7f9c8c !important;box-shadow:0 0 0 4px 
 </button>
 </div>
 </sc-for>
+</div>
+
+<!-- Closing Quote -->
+<div style="margin-top: 24px; padding: 18px 22px; border-radius: 20px; background: rgba(255,255,255,0.75); border: 1px solid rgba(127,156,140,0.3); text-align: center; box-shadow: 0 12px 24px -16px rgba(94,122,107,0.25)">
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 16px; line-height: 1.6; color: #5e7a6b; font-weight: 600">
+&ldquo;Sometimes, the most beautiful stories begin with two strangers and a sincere intention.&rdquo;
+</div>
 </div>
 </div>
 
@@ -1114,10 +1121,22 @@ class Component extends DCLogic {
       resepsi: { title: "Resepsi", time: "10:00 WIB s/d Selesai" }
     };
     const storyData = [
-      { title: "Rasa yang Terpendam dalam Diam", text: "Kisah kami bermula dari satu lingkungan yang sama, dimana kami saling mengagumi dalam diam. Namun kami memilih saling menjaga dalam ketidaktahuan, meskipun jarak kami dekat sebagai tetangga dan bersebrangan. Rasa itu akhirnya kami simpan dalam diam, hingga takdir mempertemukan kami di waktu yang tepat." },
-      { title: "Dua Do'a yang Bertemu di Langit", text: "Di bulan Ramadhan 2026 Allah telah mempertemukan do'a kami di langit. Ketika kami sama-sama memohon petunjuk kepada Allah agar diberikan jodoh terbaik. Tanpa kami sadari, dua do'a yang terucap di bulan suci itu ternyata sedang menuju pada satu jawaban yang sama." },
-      { title: "Jawaban Instan Sang Pemilik Garis Takdir", text: "Pada bulan itu, Allah langsung mempertemukan kami kembali di Perum Andalusia. Rasa yang sempat redup oleh waktu, seketika berpijar kembali dengan arah yang jelas. Keesokan harinya pada 9 Maret 2026 Ari bertekad untuk berta'aruf dengan Shofa, sampai setelah keyakinan kami mengakar kuat, khitbah resmi pun kami langsungkan pada 27 Maret 2026." },
-      { title: "Menuju Ibadah Terpanjang", text: "Selama proses ini, kami tidak luput dari shalat istikharah agar diberi kemudahan & kelancaran. hingga akhirnya kami bersiap mengikat janji suci kami di hadapan-Nya pada 26 Desember 2026. Sebuah ketetapan yang terpisahkan oleh waktu, Allah persatukan kembali dengan takdir terbaik-Nya." }
+      {
+        title: "01. Two Strangers, One Intention",
+        text: "Berawal dari dua orang asing yang dipertemukan melalui sebuah perantara. Saling bertukar CV menjadi langkah pertama untuk mengenal, dengan satu niat yang sama: mencari teman hidup dalam ketaatan."
+      },
+      {
+        title: "02. A Step Towards Commitment",
+        text: "Hanya sepekan setelah bertukar CV, niat baik itu berlanjut melalui kunjungan ke rumah. Sebuah langkah sederhana yang menjadi awal keseriusan, dengan melibatkan keluarga dan mengharap rida Allah."
+      },
+      {
+        title: "03. The First Meeting",
+        text: "10 Oktober 2026 menjadi pertemuan pertama kami. Dua orang yang sebelumnya asing, kini mulai melangkah menuju satu tujuan yang sama."
+      },
+      {
+        title: "04. The Beginning of Forever",
+        text: "26 Desember 2026, insyaAllah menjadi awal perjalanan kami sebagai teman hidup. Bukan sekadar tentang menyatukan dua hati, tetapi tentang belajar bersama, saling menguatkan dalam kebaikan, dan berjalan menuju ridha-Nya."
+      }
     ];
     const stories = storyData.map((x, i) => {
       const open = st.openStory === i;
