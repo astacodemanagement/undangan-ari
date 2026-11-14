@@ -1787,15 +1787,13 @@ class Component extends DCLogic {
     this.channel = null;
     this.audio = null;
 
-    let initialWishes = [
-      { name: "Rofi Munawar", msg: "Hormat dan selamat atas pernikahannya. Semoga sakinah, mawaddah, warahmah.", status: "Hadir · 2 tamu" }
-    ];
+    let initialWishes = [];
     try {
       const saved = localStorage.getItem("shofa_ari_wishes");
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          initialWishes = parsed;
+        if (Array.isArray(parsed)) {
+          initialWishes = parsed.filter(w => (w.status || "") !== "Love");
         }
       }
     } catch (e) {}
@@ -2116,10 +2114,11 @@ class Component extends DCLogic {
         .select("*")
         .order("created_at", { ascending: false })
         .limit(100);
-      if (!error && Array.isArray(data) && data.length > 0) {
-        this.setState({ wishes: data });
+      if (!error && Array.isArray(data)) {
+        const comments = data.filter(w => (w.status || "") !== "Love");
+        this.setState({ wishes: comments });
         try {
-          localStorage.setItem("shofa_ari_wishes", JSON.stringify(data.slice(0, 50)));
+          localStorage.setItem("shofa_ari_wishes", JSON.stringify(comments.slice(0, 50)));
         } catch (e) {}
       }
     } catch (e) {

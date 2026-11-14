@@ -593,14 +593,20 @@
       if (!confirm(`Apakah Anda yakin ingin menghapus ucapan dari "${name}"?`)) return;
 
       try {
-        const { error } = await supabaseClient
+        const { data, error } = await supabaseClient
           .from("wishes")
           .delete()
-          .eq("id", id);
+          .eq("id", id)
+          .select();
 
         if (error) {
           alert("Gagal menghapus komentar: " + (error.message || error.details || "Pastikan RLS policy DELETE sudah diaktifkan di Supabase"));
           console.error(error);
+          return;
+        }
+
+        if (!data || data.length === 0) {
+          alert("Perhatian: Komentar tidak terhapus dari Database Supabase karena hak akses DELETE (RLS Policy) belum diaktifkan di Supabase.\n\nSilakan buka Supabase -> SQL Editor, lalu jalankan perintah ini:\n\nCREATE POLICY \"Public can delete wishes\" ON public.wishes FOR DELETE USING (true);");
           return;
         }
 
