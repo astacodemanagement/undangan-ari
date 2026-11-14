@@ -665,7 +665,9 @@ input:focus,textarea:focus{border-color:#7f9c8c !important;box-shadow:0 0 0 4px 
 <div style="position: relative; overflow: hidden; padding: 20px 20px 18px; border-radius: 26px; background: linear-gradient(135deg,#ffffff,#f1f4ee 60%,#f6e7e2); border: 1px solid #fff; box-shadow: 0 24px 40px -24px rgba(94,122,107,0.55)">
 <div style="position: absolute; right: -40px; top: -40px; width: 140px; height: 140px; border-radius: 50%; background: radial-gradient(circle, rgba(201,166,107,0.3), rgba(201,166,107,0) 70%); animation: blob 8s ease-in-out infinite;"></div>
 <div style="position: relative; display: flex; justify-content: space-between; align-items: center">
-<div style="{{bk.logoStyle}}">{{bk.logo}}</div>
+<div style="background: #fff; padding: 6px 14px; border-radius: 12px; display: inline-flex; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid rgba(0,163,157,0.25)">
+<img src="assets/bsi-logo.svg" alt="Bank Syariah Indonesia" style="height: 26px; width: auto; max-width: 110px; display: block" />
+</div>
 <svg width="44" height="32" viewBox="0 0 47 35" aria-hidden="true"><rect x="0.5" y="0.5" width="46" height="34" rx="8" fill="#ecd48a" stroke="#c9a66b"></rect><path d="M0 12h14v11H0M33 12h14v11H33M14 4v27M33 4v27M14 17h19" fill="none" stroke="#c9a66b" stroke-width="1"></path></svg>
 </div>
 <div style="position: relative; margin-top: 16px; font-size: 12px; letter-spacing: 2px; color: #c9a66b; font-weight: 700">NO REKENING</div>
@@ -762,6 +764,22 @@ Kartu Ucapan
 </div>
 </sc-for>
 </div>
+
+<sc-if value="{{hasPagination}}" hint-placeholder-val="{{true}}">
+<div style="margin-top: 18px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 14px; border-radius: 20px; background: rgba(255,255,255,0.8); border: 1px solid rgba(127,156,140,0.25); box-shadow: 0 10px 20px -10px rgba(94,122,107,0.15)">
+<button onClick="{{prevPage}}" style="{{prevPageStyle}}">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+Sebelumnya
+</button>
+<div style="font-size: 12px; font-weight: 700; color: #5e7a6b">
+{{currentPageText}}
+</div>
+<button onClick="{{nextPage}}" style="{{nextPageStyle}}">
+Selanjutnya
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+</button>
+</div>
+</sc-if>
 </div>
 
 <!-- ================= PENUTUP ================= -->
@@ -893,7 +911,8 @@ class Component extends DCLogic {
       wishes: initialWishes,
       loveCount: initLove,
       wishSearch: "",
-      wishFilter: "all"
+      wishFilter: "all",
+      wishPage: 1
     };
   }
 
@@ -1181,7 +1200,14 @@ class Component extends DCLogic {
       return true;
     });
 
-    const wishes = filteredWishes.map((w, i) => {
+    const totalWishes = filteredWishes.length;
+    const perPage = 5;
+    const totalPages = Math.max(1, Math.ceil(totalWishes / perPage));
+    const currentPage = Math.min(Math.max(1, st.wishPage || 1), totalPages);
+    const startIndex = (currentPage - 1) * perPage;
+    const paginatedList = filteredWishes.slice(startIndex, startIndex + perPage);
+
+    const wishes = paginatedList.map((w, i) => {
       const name = (w && w.name) ? String(w.name).trim() : "Tamu";
       const rawInitials = name.split(/\s+/).slice(0, 2).map((p) => p.charAt(0).toUpperCase()).join("");
       const wishMsg = (w && w.msg) ? String(w.msg) : "";
@@ -1189,7 +1215,7 @@ class Component extends DCLogic {
         name: name,
         msg: wishMsg,
         status: (w && w.status) ? String(w.status) : "Hadir",
-        tint: tints[i % tints.length],
+        tint: tints[(startIndex + i) % tints.length],
         initials: rawInitials || "T",
         openCard: () => {
           if (window.openGreetingCardModal) {
@@ -1198,6 +1224,11 @@ class Component extends DCLogic {
         }
       };
     });
+
+    const prevBtnBase = "display: inline-flex; align-items: center; gap: 4px; padding: 7px 14px; border-radius: 16px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s ease; ";
+    const nextBtnBase = "display: inline-flex; align-items: center; gap: 4px; padding: 7px 14px; border-radius: 16px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s ease; ";
+    const pageBtnActive = "background: #fff; color: #5e7a6b; border: 1.5px solid #7f9c8c; box-shadow: 0 4px 10px rgba(94,122,107,0.15);";
+    const pageBtnDisabled = "background: #f1f4f2; color: #a4b4ab; border: 1.5px solid #dbe4dd; pointer-events: none; opacity: 0.6;";
     const cd = st.cd;
     return {
       cdDays: pad(cd.d), cdHours: pad(cd.h), cdMin: pad(cd.m), cdSec: pad(cd.s),
@@ -1245,14 +1276,20 @@ class Component extends DCLogic {
         }
       },
       wishSearchVal: st.wishSearch || "",
-      onSearchWish: (e) => this.setState({ wishSearch: e.target.value }),
-      setFilterAll: () => this.setState({ wishFilter: "all" }),
-      setFilterHadir: () => this.setState({ wishFilter: "hadir" }),
-      setFilterTidak: () => this.setState({ wishFilter: "tidak" }),
+      onSearchWish: (e) => this.setState({ wishSearch: e.target.value, wishPage: 1 }),
+      setFilterAll: () => this.setState({ wishFilter: "all", wishPage: 1 }),
+      setFilterHadir: () => this.setState({ wishFilter: "hadir", wishPage: 1 }),
+      setFilterTidak: () => this.setState({ wishFilter: "tidak", wishPage: 1 }),
       filterAllStyle: filterType === "all" ? tabOn : tabOff,
       filterHadirStyle: filterType === "hadir" ? tabOn : tabOff,
       filterTidakStyle: filterType === "tidak" ? tabOn : tabOff,
-      wishesCountText: filteredWishes.length + " ucapan ditampilkan",
+      wishesCountText: totalWishes > 0 ? ("Menampilkan " + (startIndex + 1) + "–" + Math.min(startIndex + perPage, totalWishes) + " dari " + totalWishes + " ucapan") : "Belum ada ucapan",
+      hasPagination: totalPages > 1,
+      currentPageText: "Hal. " + currentPage + " / " + totalPages,
+      prevPageStyle: prevBtnBase + (currentPage > 1 ? pageBtnActive : pageBtnDisabled),
+      nextPageStyle: nextBtnBase + (currentPage < totalPages ? pageBtnActive : pageBtnDisabled),
+      prevPage: () => this.setState({ wishPage: Math.max(1, currentPage - 1) }),
+      nextPage: () => this.setState({ wishPage: Math.min(totalPages, currentPage + 1) }),
       toggleMusic: () => {
         const nextPlaying = !st.playing;
         this.setState({ playing: nextPlaying });
