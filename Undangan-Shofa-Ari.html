@@ -370,7 +370,7 @@ window.SUPABASE_CONFIG = {
 </head>
 <body>
 <audio id="wedding-audio" loop preload="none">
-  <source src="audio.mp3" type="audio/mpeg">
+  <source src="assets/hiya-zaujati-light.mp3" type="audio/mpeg">
 </audio>
 
 <x-dc>
@@ -1422,12 +1422,12 @@ class Component extends DCLogic {
         a.id = "wedding-audio";
         a.loop = true;
         a.preload = "auto";
-        a.src = "audio.mp3";
+        a.src = "assets/hiya-zaujati-light.mp3";
         document.body.appendChild(a);
       }
       this.audio = a;
       try {
-        this.audio.volume = 0.4;
+        this.audio.volume = 0.15;
       } catch (e) {}
 
       if (!this._ytBound) {
@@ -1456,7 +1456,7 @@ class Component extends DCLogic {
     try {
       if (!this.audio) this.initAudio();
       if (this.audio) {
-        try { this.audio.volume = 0.4; } catch (e) {}
+        try { this.audio.volume = 0.15; } catch (e) {}
         const p = this.audio.play();
         if (p && p.catch) {
           p.catch((e) => console.log("Audio autoplay prevented or waiting for interaction:", e));
